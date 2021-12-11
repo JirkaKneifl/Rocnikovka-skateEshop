@@ -1,2 +1,3 @@
 # Rocnikovka-skateEshop
 
+vyřešit problém s node modulama... nenalezení mysql modulu...
