@@ -1,7 +1,7 @@
 var spojeni = require('../databaseConection.js');
 var bcrypt = require('bcrypt');
-var expres = require('expres');
-var router = expres.router();
+var express = require('express');
+var router = express.Router();
 
 router.get('/form', function(req, res, next) { 
     res.render('register'); //register.ejs
