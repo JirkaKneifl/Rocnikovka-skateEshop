@@ -1,19 +1,15 @@
-//pripojeni k databazi
-const mysql = require('mysql');
+var mysql = require('mysql');
 
-//vytvoreni propojeni
-const conn = mysql.createConnection({
-    host:'localhost',
-    user:'root',
-    password:'',
-    database:'e-shop-db-prkna'
+var spojeni = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "",
+  database: "e-shop-db-prkna"
 });
 
-//funkce zda je pripojeno nebo neni
-conn.connect(function (error){
-    if(error) throw error;
-        console.log('databaze je pripojena');
-
+spojeni.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected!");
 });
 
-module.exports = conn;
+module.exports = spojeni;
