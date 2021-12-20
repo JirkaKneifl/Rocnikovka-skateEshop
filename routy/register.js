@@ -17,7 +17,7 @@ router.get('/form', function(req, res, next) {
           if (err) throw err;
              console.log("Data byli importovány spravne"); 
       });
-     res.redirect('/register/form');  // redirect to user form page after inserting the data
+     res.redirect('/register/form');  // redirect -> presunuti na form stranku
     }); 
     module.exports = router;
 
