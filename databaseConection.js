@@ -11,12 +11,9 @@ const conn = mysql.createConnection({
 
 //funkce zda je pripojeno nebo neni
 conn.connect(function (error){
-    if(error) {
-        throw error;
-        console.log('databaze je pripojena')
-    }else{
-        console.log('databaze neni pripojena')
-    }
+    if(error) throw error;
+        console.log('databaze je pripojena');
+
 });
 
 module.exports = conn;
