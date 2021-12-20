@@ -11,7 +11,7 @@ var spojeni = mysql.createConnection({
 //pouziti spojeni k overeni zda jsem pripojeni
 spojeni.connect(function(err) {
   if (err) throw err;
-  console.log("Connected!");
+  console.log("Pripojeno!");
 });
 
 module.exports = spojeni;
