@@ -1,3 +1,4 @@
-const db = require('./databaseConection.js');
+var spojeni = require('./databaseConection.js');
+var bcrypt = require('bcrypt');
 
-console.log(db);
+
