@@ -19,6 +19,10 @@ app.get('/register', function (req,res){
 });
 
 
+app.post('/register', urlencodedParser, function (req,res){
+    console.log(req.body);
+});
+
 
 
 
