@@ -1,5 +1,5 @@
 const express = require('express');
-var ZakaznickyRouter = require('./routy/register');
+var ZakaznickyRouter = require('./controllers/register');
 const app = express();
 
 app.set('view engine', 'ejs'); //nastaveni view enginu
