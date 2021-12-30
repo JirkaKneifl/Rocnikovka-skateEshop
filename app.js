@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+var bodyParser = require('body-parser')
+
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.set('view engine', 'ejs'); //nastaveni view enginu
 
@@ -14,6 +17,8 @@ app.get('/register', function (req,res){
     res.render('register');
     console.log("jsi na registerpage")
 });
+
+
 
 
 
