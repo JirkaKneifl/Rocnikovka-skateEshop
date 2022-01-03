@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "vyřešit problém s node modulama... nenalezení mysql modulu...",
   "main": "app.js",
-  "dependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/JirkaKneifl/Rocnikovka-skateEshop.git"
   },
-  "author": "Jirka Kneifl",
+  "author": "Jiri Kneifl",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/JirkaKneifl/Rocnikovka-skateEshop/issues"
