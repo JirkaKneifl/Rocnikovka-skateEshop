@@ -1,11 +1,17 @@
 const express = require('express');
 const app = express();
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
+const path = require('path');
+const homePage = require('./routes/renderPages');
 
-//var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 
 app.set('view engine', 'ejs'); //nastaveni view enginu
 
+
+
+
+app.use('/', homePage);
 
 
 
