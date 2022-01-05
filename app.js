@@ -10,17 +10,19 @@ var spojeni = require('./databaseConection.js');//toto je tady jen abych si over
 
 app.set('view engine', 'ejs'); //nastaveni view enginu
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
 
 
 
 //routa na renderPges
 app.use('/', renderPages);
 
-app.use('/register', postPages);
+//routa na postPages
+app.use('/postPages', postPages);
 
 
 
-const port=8080; //jaky mam port
+const port=3000; //jaky mam port
 app.listen(port, () => console.log(`Aplikace běží na portu ${port}`));
