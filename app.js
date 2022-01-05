@@ -18,7 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //routa na renderPges
 app.use('/', renderPages);
 
-app.use('/postPages', postPages);
+app.use('/register', postPages);
 
 
 
