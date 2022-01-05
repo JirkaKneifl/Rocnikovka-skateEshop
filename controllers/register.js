@@ -14,7 +14,7 @@ router.post('/register', function(req, res, next) {
           if (err) throw err;
              console.log("Data byli importovány spravne"); 
       });
-     res.redirect('/registerOk');  // redirect -> presunuti na form stranku
+     res.redirect('/register');  // redirect -> presunuti na form stranku
     next();
     }); 
 
