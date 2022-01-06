@@ -1,3 +1,3 @@
 # Rocnikovka-skateEshop
 
-Dodělat routy a zprovoznit pripojeni na DB
+Udelat hashovani hesla a zprovoznit login
