@@ -13,4 +13,4 @@ function DataZDB(req, res){
 
 };
 
-module.exports = DataZDB
+module.exports = DataZDB;
