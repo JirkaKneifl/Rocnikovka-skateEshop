@@ -4,7 +4,7 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const renderPages = require('./routes/renderPages');
 const postPages = require('./routes/postPages');
-var spojeni = require('./databaseConection.js');//toto je tady jen abych si overil spojeni s db
+const spojeni = require('./databaseConection.js');//toto je tady jen abych si overil spojeni s db
 
 
 
