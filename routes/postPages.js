@@ -8,6 +8,6 @@ const router = express.Router();
 //post routa na register -> postuje data funkce DataDoDB z register.js
 router.post('/register', register.DataDoDB);
 
-route.post('/login', login.DataZDB)
+router.post('/login', login.DataZDB)
 
 module.exports = router;
