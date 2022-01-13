@@ -16,7 +16,7 @@ function DataZDB(req, res) {
 		for (let i = 0; i < result.length; i++) {
 			if(email == result[i].email && bcrypt.compareSync(heslo, result[i].heslo)) {
 				console.log(heslo);
-				return res.redirect('/');
+				return res.redirect('/');//navrat na homepage
 			}
 			
 		}
