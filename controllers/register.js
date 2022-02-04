@@ -1,4 +1,4 @@
-const spojeni = require('../databaseConection');
+const spojeni = require('../modules/databaseConection');
 
 const express = require('express');
 var router = express.Router();
