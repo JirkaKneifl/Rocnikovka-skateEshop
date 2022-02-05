@@ -1,9 +1,14 @@
-const spojeni = require('../modules/databaseConection');
 const express = require('express');
 const mysql = require('mysql');
 const bcrypt = require('bcrypt');
+const router = express.Router();
 
+//routa na login
+router.get('/', function(req, res) {
+    res.render('login/index')
+})
 
+/*
 function DataZDB(req, res) {
 	const {email, heslo} = req.body;
  
@@ -21,5 +26,5 @@ function DataZDB(req, res) {
 		}
 	})
 }
-
-module.exports.DataZDB = DataZDB;
+*/
+module.exports = router;
