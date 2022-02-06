@@ -1,9 +1,7 @@
 const spojeni = require("./databaseConection");
 
 function DataZDB(email) {
-  spojeni.query(
-    `SELECT * FROM zakaznici WHERE email = '${email}'`,
-    function (err) {
+  spojeni.query(`SELECT * FROM zakaznici WHERE email = '${email}'`, function (err) {
       if (err) {
         console.log(err);
       } else {
