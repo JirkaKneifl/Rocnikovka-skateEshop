@@ -15,10 +15,10 @@ router.post("/", async function (req, res) {
     const {jmeno , prijmeni , telefon , email , heslo} = req.body;
     const hashovanyHeslo = await bcrypt.hash(heslo, 10); //hash 10x a salt se k nemu prida automaticky
     ModulRegister.DataDoDB(jmeno,prijmeni,telefon,email,hashovanyHeslo);
-    res.redirect("register");
+    res.redirect("/register");
   } 
   catch {
-    res.redirect("registerOk");
+    res.redirect("/registerOk");
   }
 });
 
