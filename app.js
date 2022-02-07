@@ -1,17 +1,21 @@
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
-const spojeni = require('./modules/databaseConection.js');//toto je tady jen abych si overil spojeni s db
+const expressLayouts = require('express-ejs-layouts');
 
+const app = express();
+
+const spojeni = require('./modules/databaseConection.js');//toto je tady jen abych si overil spojeni s db
 const homePageRout = require('./controllers/homePage')
 const registerRout = require('./controllers/register')
 const loginRout = require('./controllers/login')
 
 
 
-
-app.set('view engine', 'ejs'); //nastaveni view enginu
+//nastaveni view enginu
+app.use(expressLayouts);
+app.set('layout', './layouts/hlavni')
+app.set('view engine', 'ejs'); 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
