@@ -10,11 +10,11 @@ const homePageRout = require('./controllers/homePage')
 const registerRout = require('./controllers/register')
 const loginRout = require('./controllers/login')
 
-const test = require('./modules/ModelMainCategori');
+const test = require('./modules/ModelMainCategori');//test
 
-console.log(test);
-console.log(test.arguments);
-console.log(test.apply);
+console.log(test);//test
+console.log(test.arguments);//test
+console.log(test.apply);//test
 
 //nastaveni view enginu
 app.use(expressLayouts);

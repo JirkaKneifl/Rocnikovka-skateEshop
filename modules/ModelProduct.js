@@ -1,5 +1,6 @@
 const spojeni = require("../modules/databaseConection");
 
+//test
 function SelectPruduct() {
   spojeni.query(`SELECT 
     nazev, 
@@ -10,7 +11,7 @@ function SelectPruduct() {
     delka, 
     cesta_obrazekProduktu, 
     dodatecneInfoProduktu 
-    FROM produkty`, function (err) {
+    FROM produkty`, function(err) {
         if(err){
             throw err;
         }
