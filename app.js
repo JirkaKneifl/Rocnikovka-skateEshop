@@ -9,7 +9,7 @@ const spojeni = require('./modules/databaseConection.js');//toto je tady jen aby
 const homePageRout = require('./controllers/homePage')
 const registerRout = require('./controllers/register')
 const loginRout = require('./controllers/login')
-const testRout = require('./controllers/test');
+const mainCategoryRout = require('./controllers/mainCategory');
 
 
 
@@ -26,7 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use('/', homePageRout);
 app.use('/register', registerRout);
 app.use('/login', loginRout);
-app.use('/test', testRout);
+app.use('/mainCategory', mainCategoryRout);
 
 
 const port=3000; //jaky mam port

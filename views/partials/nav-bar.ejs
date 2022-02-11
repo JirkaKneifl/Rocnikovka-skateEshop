@@ -1,3 +1,18 @@
+<nav>
+  <ul>
+    <a>Shop</a>
+    <% MainData.forEach(element => { %>
+    <li><a>
+        <%= element.nazev %>
+        <%= element.ID_kategorie %>  
+      </a></li>
+      <% }) %>
+
+      
+  </ul>
+</nav>
+
+<!--
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -54,3 +69,4 @@
     </div>
   </div>
 </nav>
+-->
