@@ -23,10 +23,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //nastavení routy
+app.use('/', mainCategoryRout, homePageRout);
 app.use('/', homePageRout);
 app.use('/register', registerRout);
 app.use('/login', loginRout);
-app.use('/mainCategory', mainCategoryRout);
+
 
 
 const port=3000; //jaky mam port
