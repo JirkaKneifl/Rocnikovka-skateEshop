@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 
 //nastavení routy
 app.use('/', mainCategoryRout, homePageRout);
-app.use('/', homePageRout);
+
 app.use('/register', registerRout);
 app.use('/login', loginRout);
 
