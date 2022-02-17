@@ -24,20 +24,19 @@
           </a>
 
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% MainData.forEach(element => { %>
+            <% categories.forEach(category => { %>
             <div style="display: flex;">
-              <li><a class="dropdown-item" href="#"><%= element.nazev %></a></li>
-              
-              
-              <div style="display: table;">
-                <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
-              <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
-              <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
-              </div>
+              <li>
+                  <a class="dropdown-item" href="#"><%= category.nazev %></a>
+                  <ul style="display: table;">
+                      <li><hr class="dropdown-divider" /></li>
+                      <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
+                      <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
+                      <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
+                  </ul>
+              </li>
             </div>
-
-            <% }) %>
+            <% }) %>  
           </ul>
         </li>
 
