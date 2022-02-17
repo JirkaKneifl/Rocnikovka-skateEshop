@@ -1,6 +1,6 @@
 function baseController(controllerCallback) {
     const categories = await MainCategory.SelectMainCategori();
-    // ...
+    
     controllerCallback({categories})
 }
 

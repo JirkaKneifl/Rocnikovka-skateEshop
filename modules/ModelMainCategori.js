@@ -1,9 +1,8 @@
 const spojeni = require("./databaseConection");
-//test
-function SelectMainCategori() {
+
+function query(sql) {
     return new Promise(function(resolve, reject){
         try {
-            let sql = `SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`;
             spojeni.query(sql, function(err, results){
                 if(err){
                     return reject(err);
@@ -12,9 +11,16 @@ function SelectMainCategori() {
             })
         } catch (err) {
             reject(err);
-            throw err
         }
     })
 }
 
-module.exports.SelectMainCategori = SelectMainCategori;
+
+//test
+function SelectMainCategori() {
+    return query(`SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`)
+}
+
+module.exports = {
+    SelectMainCategory,
+};
