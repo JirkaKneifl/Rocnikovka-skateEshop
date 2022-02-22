@@ -21,6 +21,4 @@ function SelectMainCategori() {
     return query(`SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`)
 }
 
-module.exports = {
-    SelectMainCategory,
-};
+module.exports = SelectMainCategori();
