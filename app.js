@@ -9,7 +9,6 @@ const spojeni = require('./modules/databaseConection.js');//toto je tady jen aby
 const homePageRout = require('./controllers/homePage')
 const registerRout = require('./controllers/register')
 const loginRout = require('./controllers/login')
-const mainCategoryRout = require('./controllers/mainCategory');
 
 
 
@@ -23,7 +22,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //nastavení routy
-app.use('/', mainCategoryRout, homePageRout);
+app.use('/', homePageRout);
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);
