@@ -1,7 +1,7 @@
-const ModelMainCategori = require('../modules/ModelMainCategori')
+const ModelCategory = require('../modules/ModelCategory')
 
 function baseController(controllerCallback) {
-    const categories = await ModelMainCategori.SelectMainCategori();
+    const categories = await ModelCategory.SelectMainCategori();
     
     controllerCallback({categories})
 }

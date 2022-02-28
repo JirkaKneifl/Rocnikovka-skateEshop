@@ -17,10 +17,15 @@ function query(sql) {
 
 
 //test
-function SelectMainCategori() {
+function SelectMainCategory() {
     return query(`SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`)
 }
 
+function SelectDeskyCategory(){
+    return query('SELECT * FROM kategorie WHERE ID_kat_nadrazene = 1;')
+}
+
 module.exports = {
-    SelectMainCategori,
+    SelectMainCategory, 
+    SelectDeskyCategory,
 };
