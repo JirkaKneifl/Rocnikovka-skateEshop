@@ -22,5 +22,5 @@ function SelectMainCategori() {
 }
 
 module.exports = {
-    SelectMainCategory,
+    SelectMainCategori,
 };
