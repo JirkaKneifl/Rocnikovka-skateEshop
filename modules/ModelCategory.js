@@ -21,11 +21,11 @@ function SelectMainCategory() {
     return query(`SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`)
 }
 
-function SelectDeskyCategory(){
-    return query('SELECT * FROM kategorie WHERE ID_kat_nadrazene = 1;')
+function SelectSecondCategory(){
+    return query('SELECT * FROM kategorie WHERE  ID_kategorie = ID_kat_nadrazene ;')
 }
 
 module.exports = {
     SelectMainCategory, 
-    SelectDeskyCategory,
+    SelectSecondCategory,
 };
