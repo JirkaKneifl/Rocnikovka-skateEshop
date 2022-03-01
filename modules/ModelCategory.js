@@ -17,8 +17,15 @@ function query(sql) {
 
 
 //test
-function SelectMainCategori() {
+function SelectMainCategory() {
     return query(`SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`)
 }
 
-module.exports = SelectMainCategori();
+function SelectSecondCategory(){
+    return query('SELECT * FROM kategorie WHERE  ID_kategorie = ID_kat_nadrazene ;')
+}
+
+module.exports = {
+    SelectMainCategory, 
+    SelectSecondCategory,
+};

@@ -30,9 +30,9 @@
                   <a class="dropdown-item" href="#"><%= category.nazev %></a>
                   <ul style="display: table;">
                       <li><hr class="dropdown-divider" /></li>
-                      <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
-                      <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
-                      <li><a class="dropdown-item" href="#">Druhý stupeň kategorií</a></li>
+                      <% categoriesSecond.forEach(categorySec => { %>
+                      <li><a class="dropdown-item" href="#"><%= categorySec.nazev %> </a></li>
+                      <% }) %> 
                   </ul>
               </li>
             </div>

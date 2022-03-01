@@ -1,5 +1,7 @@
+const ModelCategory = require('../modules/ModelCategory')
+
 function baseController(controllerCallback) {
-    const categories = await MainCategory.SelectMainCategori();
+    const categories = await ModelCategory.SelectMainCategori();
     
     controllerCallback({categories})
 }
@@ -13,4 +15,4 @@ function baseController(controllerCallback) {
     }
 }*/
 
-module.export.default = baseController
+module.export.default = baseController 
