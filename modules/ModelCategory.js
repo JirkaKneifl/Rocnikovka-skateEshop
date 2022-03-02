@@ -22,7 +22,8 @@ function SelectMainCategory() {
 }
 
 function SelectSecondCategory(){
-    return query('SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NOT NULL AND ID_kat_nadrazene = ID_kategorie;')
+    return query('SELECT * FROM kategorie WHERE   (ID_kategorie = ID_kat_nadrazene) AND (ID_kat_nadrazene IS NOT NULL) ;')
+
 }
 
 module.exports = {
