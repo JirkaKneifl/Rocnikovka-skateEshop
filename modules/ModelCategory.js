@@ -22,7 +22,9 @@ function SelectMainCategory() {
 }
 
 function SelectSecondCategory(){
+
     return query('SELECT * FROM kategorie WHERE ID_kategorie = ID_kat_nadrazene;')
+
 }
 
 module.exports = {
