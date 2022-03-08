@@ -17,17 +17,17 @@ function query(sql) {
 
 
 //test
-function SelectMainCategory() {
-    return query(`SELECT * FROM kategorie WHERE ID_kat_nadrazene IS NULL;`)
+async function SelectAllCategories() {
+    const categories = await query(`SELECT * FROM kategorie;`)
+    
+    return categories.filter(category => category.ID_kat_nadrazene === null).map(category => ({
+        ...category, 
+        podkategorie: categories.filter(podCategory => podCategory.ID_kat_nadrazene === category.ID_kategorie)
+    }))
+    
 }
 
-function SelectSecondCategory(){
-
-    return query('SELECT * FROM kategorie WHERE ID_kategorie = ID_kat_nadrazene;')
-
-}
 
 module.exports = {
-    SelectMainCategory, 
-    SelectSecondCategory,
+    SelectAllCategories, 
 };
