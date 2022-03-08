@@ -3,14 +3,17 @@ const router = express.Router();
 const ModelCategory = require('../modules/ModelCategory');
 
 router.get('/', async function (req, res){
-    const categories = await ModelCategory.SelectMainCategory();
-    const categoriesSecond = await ModelCategory.SelectSecondCategory();
+    const categoriesTree = await ModelCategory.SelectAllCategories();
+    
+    console.log('1-----------------')
+    console.log(await ModelCategory.SelectAllCategories({}));
+    console.log('1-----------------')
 
-
-    console.log(categories)
     console.log('-----------------')
-    console.log(categoriesSecond)
-    res.render('../views/homePage/index.ejs', {categories, categoriesSecond})
+    console.log(categoriesTree)
+    console.log('-----------------')
+    console.log()
+    res.render('../views/homePage/index.ejs', {categoriesTree})
 })
 
 module.exports = router;
