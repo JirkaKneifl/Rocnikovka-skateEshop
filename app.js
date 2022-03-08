@@ -22,6 +22,9 @@ app.set('view engine', 'ejs');
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+//nastaveni static souborů
+app.use('/static', express.static('static'));
+
 //nastavení routy
 app.use('/', homePageRout);
 
