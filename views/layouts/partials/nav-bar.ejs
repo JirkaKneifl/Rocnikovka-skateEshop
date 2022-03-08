@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">
-      <img src="/Severe Downhill.jpg" alt="" width="30" height="24">
+      <img src="static/images/Severe%20Downhill%20Shop.png" alt="" width="300" height="160">
       </a>
     <button
       class="navbar-toggler"
@@ -26,14 +26,14 @@
             Shop
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <% categories.forEach(category => { %>
+            <% categoriesTree.forEach(category => { %>
             <div style="display: flex;">
               <li>
-                  <a class="dropdown-item" href="#"><%= category.nazev %></a>
+                  <a class="dropdown-item" href="<%= category.nazev %>-<%= category.ID_kategorie %> "><%= category.nazev %></a>
                   <ul style="display: table;">
                       <li><hr class="dropdown-divider" /></li>
-                      <% categoriesSecond.forEach(categorySec => { %>
-                      <li><a class="dropdown-item" href="#"><%= categorySec.nazev %> </a></li>
+                      <% categoriesTree.forEach(podkategorie => { %>
+                      <li><a class="dropdown-item" href="#"><%= podkategorie.nazev %> </a></li>
                       <% }) %> 
                   </ul>
               </li>
