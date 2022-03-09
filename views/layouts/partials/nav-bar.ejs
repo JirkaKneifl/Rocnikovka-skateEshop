@@ -32,7 +32,7 @@
                   <a class="dropdown-item" href="<%= category.nazev %>-<%= category.ID_kategorie %> "><%= category.nazev %></a>
                   <ul style="display: table;">
                       <li><hr class="dropdown-divider" /></li>
-                      <% categoriesTree.forEach(podkategorie => { %>
+                      <% (category.podkategorie ).forEach(podkategorie => { %>
                       <li><a class="dropdown-item" href="#"><%= podkategorie.nazev %> </a></li>
                       <% }) %> 
                   </ul>
