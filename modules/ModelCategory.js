@@ -16,7 +16,7 @@ function query(sql) {
 }
 
 
-//test
+//funkce kera vytvori strukturu stromu katergorií
 async function SelectAllCategories() {
     const categories = await query(`SELECT * FROM kategorie;`)
     
