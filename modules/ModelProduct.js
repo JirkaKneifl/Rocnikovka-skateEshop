@@ -1,22 +1,26 @@
-const spojeni = require("../modules/databaseConection");
 
-//test
-function SelectPruduct() {
-  spojeni.query(`SELECT 
-    nazev, 
-    cena, 
-    popis, 
-    vaha, 
-    sirka, 
-    delka, 
-    cesta_obrazekProduktu, 
-    dodatecneInfoProduktu 
-    FROM produkty`, function(err) {
-        if(err){
-            throw err;
-        }
-    }
-  );
+function query(sql) {
+  return new Promise(function(resolve, reject){
+      try {
+          spojeni.query(sql, function(err, results){
+              if(err){
+                  return reject(err);
+              }
+              return resolve(results);
+          })
+      } catch (err) {
+          reject(err);
+      }
+  })
 }
 
-module.exports = SelectPruduct;
+
+//
+async function SelectDataProduktu() {
+  return query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = ?;`)
+}
+
+module.exports = {
+  SelectDataProduktu, 
+};
+
