@@ -29,11 +29,10 @@
             <% categoriesTree.forEach(category => { %>
             <div style="display: flex;">
               <li>
-                  <a class="dropdown-item" href="<%= category.nazev %>-<%= category.ID_kategorie %> "><%= category.nazev %></a>
+                  <a class="dropdown-item" href="/kategorie/<%= category.slug %>:<%= category.ID_kategorie %>"><%= category.nazev %></a>
                   <ul style="display: table;">
-                      <li><hr class="dropdown-divider" /></li>
                       <% (category.podkategorie ).forEach(podkategorie => { %>
-                      <li><a class="dropdown-item" href="#"><%= podkategorie.nazev %> </a></li>
+                      <li><a class="dropdown-item" href="/kategorie/<%= category.slug %>:<%= category.ID_kategorie %>/<%= podkategorie.slug %>:<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %> </a></li>
                       <% }) %> 
                   </ul>
               </li>
