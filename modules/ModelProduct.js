@@ -16,11 +16,16 @@ function query(sql) {
 
 
 //
-async function SelectDataProduktu() {
-  return query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = ?;`)
+async function SelectDataNadKategorieProduktu() {
+  return query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = '${ID_hlavniKategorie}';`)
+}
+
+async function SelectDataPodKategorieProduktu(){
+  return query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = '${ID_podkategorie}';`)
 }
 
 module.exports = {
-  SelectDataProduktu, 
+  SelectDataNadKategorieProduktu,
+  SelectDataPodKategorieProduktu,
 };
 
