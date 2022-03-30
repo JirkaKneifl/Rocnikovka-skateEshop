@@ -1,3 +1,19 @@
 <%- include('../layouts/partials/nav-bar.ejs'); %>
 <h1>Stranka s produkty</h1>
+<ul class="list-group list-group-horizontal">
+<% NadKategorieProdukty.forEach(produkty => { %>
+    <li  style="list-style: none; ">
+        <div class="card" style="width: 18rem; ">
+            <img src="..." class="card-img-top" alt="obrázek: <%= produkty.nazev %>">
+            <div class="card-body">
+            <h5 class="card-title"><%= produkty.nazev %></h5>
+            <h6 class="card-price"><%= produkty.cena %> Kč</h6>
+            <a href="/produkty/<%= produkty.ID_produktu %> " class="btn btn-primary">Více:</a>
+            </div>
+        </div>
+    </li>
+<% }) %> 
+</ul>
+
+
 <%- include('../layouts/partials/footer.ejs'); %>

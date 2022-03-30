@@ -1,3 +1,5 @@
+const spojeni = require("./databaseConection");
+
 function query(sql) {
   return new Promise(function (resolve, reject) {
     try {
@@ -13,15 +15,12 @@ function query(sql) {
   });
 }
 
-//
-async function SelectDataNadKategorieProduktu() {
-  return query(
-    `SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = '${ID_hlavniKategorie}';`);
+async function SelectDataNadKategorieProduktu(ID_hlavniKategorie) {
+  return query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = '${ID_hlavniKategorie}');`); //'${ID_hlavniKategorie}'
 }
 
-async function SelectDataPodKategorieProduktu() {
-  return query(
-    `SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = '${ID_podkategorie}';`);
+async function SelectDataPodKategorieProduktu(ID_podkategorie) {
+  return query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = '${ID_podkategorie}');`);//'${ID_podkategorie}'
 }
 
 module.exports = {
