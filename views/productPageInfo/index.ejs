@@ -1,0 +1,9 @@
+<!-- navbar -->
+<%- include('../layouts/partials/nav-bar.ejs'); %>
+
+<% PorduktyInfo.forEach(produkt => { %>
+ <h1>Produkt: <%= produkt.nazev %> </h1>
+<% }) %>
+
+<!-- footer -->
+<%- include('../layouts/partials/footer.ejs'); %>
