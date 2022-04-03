@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+require('dotenv').config()
 
 const app = express();
 
@@ -12,7 +13,7 @@ const loginRout = require('./controllers/login')
 const productPageRout = require('./controllers/categoryProducsController')
 
 
-
+//console.log(process.env)
 
 
 //nastaveni view enginu
@@ -29,6 +30,7 @@ app.use('/static', express.static('static'));
 //nastavení routy
 app.use('/', homePageRout);
 app.use('/kategorie', productPageRout);
+app.use('/kategorie/produkty', productPageRout);
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);
