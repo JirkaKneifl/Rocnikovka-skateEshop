@@ -4,10 +4,10 @@
 <h1>Stranka s produkty</h1>
 
 <!-- karta produktu -->
-<ul class="list-group list-group-horizontal">
+<ul class="list-group list-group-horizontal d-flex flex-wrap ">
 <% Produkty.forEach(produkt => { %>
-    <li  style="list-style: none; ">
-        <div class="card" style="width: 18rem; ">
+    <li  style="list-style: none; " class=" mx-1 my-1">
+        <div class="card px-1 py-1" style="width: 18rem; ">
         
             <img src="/<%= produkt.cesta_obrazekProduktu %>/01.jpg" class="card-img-top" alt="obrázek: <%= produkt.nazev %>">
             <div class="card-body">
