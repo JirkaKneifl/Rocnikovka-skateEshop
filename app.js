@@ -11,6 +11,7 @@ const homePageRout = require('./controllers/homePage')
 const registerRout = require('./controllers/register')
 const loginRout = require('./controllers/login')
 const productPageRout = require('./controllers/categoryProducsController')
+const cartPageRout = require('./controllers/cartController')
 
 
 //console.log(process.env)
@@ -31,6 +32,7 @@ app.use('/static', express.static('static'));
 app.use('/', homePageRout);
 app.use('/kategorie', productPageRout);
 app.use('/kategorie/produkty', productPageRout);
+app.use('/kosik', cartPageRout);
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);

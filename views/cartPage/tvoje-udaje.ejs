@@ -1,0 +1,56 @@
+<%- include('../layouts/partials/nav-bar.ejs'); %>
+<div class="row">
+    <!-- Udaje -->
+    <div class="col-md-8">
+        <h1 class="d-flex justify-content-center">Tvoje udaje</h1>
+        <form>
+            <div class="row p-2 border">
+                <div class="col-md-6">
+                    <h3>Kontaktní údaje</h3>
+                    <label class="label p-1">Jméno</label>
+                    <input type="text" class="form-control p-1">
+                      
+                    <label class="label p-1">Příjmení</label>
+                    <input type="text" class="form-control p-1">
+
+                    <label class="label p-1">Telefon</label>
+                    <input type="tel" class="form-control p-1">
+
+                    <label class="label p-1">Email</label>
+                    <input type="email" class="form-control p-1">
+                </div>
+                <div class="col-md-6">
+                    <h3>Fakturační údaje</h3>
+                    <label class="label p-1">Ulice a č.p.</label>
+                    <input type="text" class="form-control p-1" >
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="label p-1">PSČ</label>
+                            <input type="text" class="form-control p-1">
+                        </div>
+                        <div class="col-md-8">
+                            <label class="label p-1">Město</label>
+                            <input type="text" class="form-control p-1" >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3"></div>
+                <div class="border row p-2">
+                    <h3 class="p-2">Poznámka k objednávce</h3>
+                    <textarea class="form-control p-2" rows="5"></textarea>
+                </div>
+        </form>
+    </div>
+    
+    <!-- Doprava -->
+    <div class="col-md-4">
+        <h1 class="d-flex justify-content-center">Doprava</h1>
+        <div class="row p-2 border ">
+
+        </div>
+    </div>
+</div>
+<div class="p-3"></div>
+<%- include('../layouts/partials/footer.ejs'); %>
