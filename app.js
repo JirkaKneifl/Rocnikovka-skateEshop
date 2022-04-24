@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const session = require('express-session');
 require('dotenv').config()
 
 const app = express();
@@ -16,6 +17,14 @@ const cartPageRout = require('./controllers/cartController')
 
 //console.log(process.env)
 
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        maxAge: 60 * 1000,
+    }
+}));
 
 //nastaveni view enginu
 app.use(expressLayouts);

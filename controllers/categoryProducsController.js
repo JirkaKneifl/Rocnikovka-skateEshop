@@ -32,6 +32,8 @@ router.get('/:ID_hlavniKategorie/:ID_podkategorie?', async function (req, res){ 
     }
 }) 
 
+router.post('/kategorie/produkty');
+
 
 
 module.exports = router;
