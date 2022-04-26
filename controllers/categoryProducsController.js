@@ -37,7 +37,7 @@ router.post('/:ID_produktu?', async function (req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     req.session.pocetNavstevProhlizece += 1;
     
-   req.session.mnozstvi = req.query.mnozstvi
+   req.session.mnozstvi = req.body.mnozstvi
    console.log(req.body.mnozstvi)
    console.log(req.body.IDproduktu)
 
