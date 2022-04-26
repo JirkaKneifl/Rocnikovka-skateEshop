@@ -48,5 +48,5 @@ app.use('/login', loginRout);
 
 
 
-const port=3000; //jaky mam port
+const port=process.env.PORT; //jaky mam port
 app.listen(port, () => console.log(`Aplikace běží na portu ${port}`));
