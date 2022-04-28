@@ -22,7 +22,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: { 
-        maxAge: 60 * 1000, //cas po ktery funguje je minuta
+        maxAge:  10 * 1000, //cas po ktery funguje je minuta
     }
 }));
 

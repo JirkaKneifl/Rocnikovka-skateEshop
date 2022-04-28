@@ -33,19 +33,5 @@ router.get('/:ID_hlavniKategorie/:ID_podkategorie?', async function (req, res){ 
 }) 
 
 
-router.post('/:ID_produktu?', async function (req, res){
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
-    req.session.pocetNavstevProhlizece += 1;
-    
-   req.session.mnozstvi = req.body.mnozstvi
-   console.log(req.body.mnozstvi)
-   console.log(req.body.IDproduktu)
-
-
-   
-    res.render('../views/cartPage/index.ejs', { categoriesTree , mnozstvi: req.session.mnozstvi , pocetNavstevProhlizece: req.session.pocetNavstevProhlizece })
-});
-
-
 
 module.exports = router;
