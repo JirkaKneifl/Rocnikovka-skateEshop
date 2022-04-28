@@ -41,8 +41,8 @@ router.post('/:ID_produktu?', async function (req, res){
    console.log(req.body.mnozstvi)
    console.log(req.body.IDproduktu)
 
-  
 
+   
     res.render('../views/cartPage/index.ejs', { categoriesTree , mnozstvi: req.session.mnozstvi , pocetNavstevProhlizece: req.session.pocetNavstevProhlizece })
 });
 
