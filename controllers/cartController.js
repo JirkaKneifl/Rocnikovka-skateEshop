@@ -20,13 +20,21 @@ router.get('/', async function(req, res){
 router.post('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     
-    const dataPridejDoKosiku = {
-            mnozstvi: req.body.mnozstvi,
-            IDproduktu: req.body.IDproduktu
+    if(!req.session.dataPridejDoKosiku || req.session.dataPridejDoKosiku.length === undefined){
+        req.session.dataPridejDoKosiku = [];
     }
-    console.log(dataPridejDoKosiku)
 
-    req.session.dataPridejDoKosiku = dataPridejDoKosiku;
+    const dataPridejDoKosikuNovouPolozku = 
+        {
+            mnozstvi: req.body.mnozstvi,
+            IDproduktu: req.body.IDproduktu,
+            obrazekProduktu: req.body.obrazekProduktu
+        }
+    
+
+    
+
+    req.session.dataPridejDoKosiku = [...req.session.dataPridejDoKosiku , dataPridejDoKosikuNovouPolozku] ; //vytvorim nove pole do ktereho zkopiruju stare a pridam na konec novou polozku
 
     const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
     console.log(dataPridejDoKosikuSession)
@@ -43,9 +51,11 @@ router.post('/', async function(req, res){
     console.log(req.session.cookie.maxAge)
 });
 
-router.get('/tvoje-udaje', async function(req, res){
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
-    res.render('../views/cartPage/tvoje-udaje.ejs', { categoriesTree })
-});
+/*
+router.post('/objednavka-odeslana' async function(req, res){
+    const categoriesTree = await ModelCategory.SelectAllC
+     
+    res.render('../views/cartPage/succesOrder.ejs', { categoriesTree}
+});*/
 
 module.exports = router;

@@ -22,7 +22,7 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     cookie: { 
-        maxAge:  10 * 1000, //cas po ktery funguje je minuta
+        maxAge:  10 * 1000, //cas po ktery funguje je 
     }
 }));
 
@@ -42,6 +42,7 @@ app.use('/', homePageRout);
 app.use('/kategorie', productPageRout);
 app.use('/kategorie/produkty', productPageRout);
 app.use('/kosik', cartPageRout);
+app.use('/kosik/objednavka-odeslana', cartPageRout );
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);
