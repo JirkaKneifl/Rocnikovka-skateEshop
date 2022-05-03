@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const ModelCategory = require('../modules/ModelCategory');
 const ModelProduct = require('../modules/ModelProduct');
+const ModelCart = require('../modules/ModelCart');
 
 router.get('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
@@ -24,18 +25,14 @@ router.post('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const ID_produktu = req.body.IDproduktu;
     const PorduktyInfo = await ModelProduct.SelectDataJednohoProduktu(ID_produktu);
-
     
-    PorduktyInfo.forEach(produkt => {
-         cenaProduktu = produkt.cena;
-    });
-
     const dataPridejDoKosikuNovouPolozku = 
         {
+            nazev: req.body.nazev,
             mnozstvi: req.body.mnozstvi,
             IDproduktu: req.body.IDproduktu,
             obrazekProduktu: req.body.obrazekProduktu,
-            cenaProduktu: cenaProduktu
+            PorduktyInfo: PorduktyInfo
         }
     
     req.session.dataPridejDoKosiku = [...req.session.dataPridejDoKosiku , dataPridejDoKosikuNovouPolozku] ; //vytvorim nove pole do ktereho zkopiruju stare a pridam na konec novou polozku

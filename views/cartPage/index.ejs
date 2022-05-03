@@ -58,7 +58,7 @@
                         Souhlasím s Obchodními podmínkami, beru na vědomí Zásady zpracování osobních údajů a zavazuji se k platbě. 
                     </label>
                   </div>
-        
+        <button type="submit" class="btn btn-success">Odeslat objednávku</button>
     </div>
     
     <!-- Doprava -->
@@ -90,16 +90,29 @@
                   </div> 
             </li>
         </div>
-        <% dataPridejDoKosikuSession.forEach(produkt => { %>
-            <li>
-                <h2> Mnozstvi: <%= produkt.mnozstvi %> </h2>
-                <h2> ID: <%= produkt.IDproduktu %> </h2>
-                <h2> cena: <% produkt.cenaProduktu %> </h2>
-                <img src="<%= produkt.obrazekProduktu %> ">
-            <% }) %>
-            </li>
+        <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th scope="col">Obrazek</th>
+                <th scope="col">Nazev</th>
+                <th scope="col">Mnozstvi</th>
+                <th scope="col">Cena</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% dataPridejDoKosikuSession.forEach(produkt => { %>
+              <tr>
+                <th scope="row"><img src="<%= produkt.obrazekProduktu %>" style="width: 50px; height: 50px;"></th>
+                    <td><%= produkt.nazev %> </td><!--Nazev-->
+                    <td><input type="number" class="form-control" value="<%= produkt.mnozstvi %>"></td><!--Mnozstvi-->
+                    <% (produkt.PorduktyInfo).forEach(produkt => { %>
+                    <td><%= produkt.cena %></td><!--Cena-->
+                    <% }) %> 
+              </tr>
+              <% }) %>
+            </tbody>
+          </table>
     </div>
-    <button type="submit" class="btn btn-success">Odeslat objednávku</button>
 </div>
 </form>
 <div class="p-3"></div>
