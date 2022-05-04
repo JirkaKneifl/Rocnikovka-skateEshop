@@ -1,22 +1,21 @@
 <!-- navbar -->
 <%- include('../layouts/partials/nav-bar.ejs'); %>
 
-<h1>Stranka s produkty</h1>
-
 <!-- karta produktu -->
 <ul class="list-group list-group-horizontal d-flex flex-wrap ">
 <% Produkty.forEach(produkt => { %>
-    <li  style="list-style: none; " class=" mx-1 my-1">
+    <a href="/kategorie/produkty/<%= produkt.ID_produktu %>" class="text-decoration-none text-dark">
+    <li  style="list-style: none; " class=" mx-1 my-1 p-2">
         <div class="card px-1 py-1" style="width: 18rem; ">
-        
             <img src="/<%= produkt.cesta_obrazekProduktu %>/01.jpg" class="card-img-top" alt="obrázek: <%= produkt.nazev %>">
             <div class="card-body">
             <h5 class="card-title"><%= produkt.nazev %></h5>
             <h6 class="card-price"><%= produkt.cena %> Kč</h6>
-            <a href="/kategorie/produkty/<%= produkt.ID_produktu %>" class="btn btn-primary">Více:</a>
+            <a href="/kategorie/produkty/<%= produkt.ID_produktu %>" class="btn btn-success">Více:</a>
             </div>
         </div>
     </li>
+    </a>
 <% }) %> 
 </ul>
 

@@ -44,18 +44,14 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="">Video</a>
         </li>
-
       </ul>
+        <a href="<% process.env.APP_URL %>/kosik" class="nav-item nav-link active border rounded-3 p-2 m-2 border-success">
+          <img src="<% process.env.APP_URL %>/static/images/shopping-cart.png" style="height: auto; width: 20px;">
+        </a>
       <form class="d-flex">
-        <input
-          class="form-control me-2"
-          type="search"
-          placeholder="Hledat"
-          aria-label="Search"
-        />
+        <input class="form-control me-2" type="search" placeholder="Hledat" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Hledat</button>
       </form>
-      <a href="<% process.env.APP_URL %>/kosik">Košík</a>
     </div>
   </div>
 </nav>
