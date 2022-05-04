@@ -1,8 +1,36 @@
 <%- include('../layouts/partials/nav-bar.ejs'); %>
 <% if (dataPridejDoKosikuSession) { %>
 <form action="" method="post">
+  <div class="border p-2 mt-2 mb-2">
+    <h1 class="d-flex justify-content-center p-2">Souhrn produktů</h1>
+    <table class="table table-borderless p-2">
+        <thead>
+          <tr>
+            <th scope="col">Produkt</th>
+            <th scope="col">Mnozstvi</th>
+            <th scope="col">Cena</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% dataPridejDoKosikuSession.forEach(produkt => { %>
+          <tr>
+            <th scope="row">
+                <img src="<%= produkt.obrazekProduktu %>" style="width: 70px; height: 70px;">
+                <label class="p-2"><%= produkt.nazev %></label><!--Nazev-->
+            </th>
+                <td><input type="number" class="form-control p-2" value="<%= produkt.mnozstvi %>"></td><!--Mnozstvi-->
+                <% (produkt.PorduktyInfo).forEach(produkt => { %>
+                <td><label class="p-2"><%= produkt.cena %></label></td><!--Cena-->
+                <% }) %> 
+                <td><button class="btn btn-danger p-2">Odeber</button></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+  </div>
+
 <!-- Udaje a doprava -->
-<div class="row border p-2">
+<div class="row border p-2 mt-2 mb-2">
     <!-- Udaje -->
     <div class="col-md-8">
         <h1 class="d-flex justify-content-center">Tvoje udaje</h1>
@@ -85,28 +113,7 @@
                   </div> 
             </li>
         </div>
-        <table class="table table-borderless">
-            <thead>
-              <tr>
-                <th scope="col">Obrazek</th>
-                <th scope="col">Nazev</th>
-                <th scope="col">Mnozstvi</th>
-                <th scope="col">Cena</th>
-              </tr>
-            </thead>
-            <tbody>
-            <% dataPridejDoKosikuSession.forEach(produkt => { %>
-              <tr>
-                <th scope="row"><img src="<%= produkt.obrazekProduktu %>" style="width: 50px; height: 50px;"></th>
-                    <td><%= produkt.nazev %> </td><!--Nazev-->
-                    <td><input type="number" class="form-control" value="<%= produkt.mnozstvi %>"></td><!--Mnozstvi-->
-                    <% (produkt.PorduktyInfo).forEach(produkt => { %>
-                    <td><%= produkt.cena %></td><!--Cena-->
-                    <% }) %> 
-              </tr>
-              <% }) %>
-            </tbody>
-          </table>
+        
     </div>
 </div>
 </form>
