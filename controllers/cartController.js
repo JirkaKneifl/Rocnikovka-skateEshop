@@ -30,7 +30,7 @@ router.post('/', async function(req, res){
         {
             nazev: req.body.nazev,
             mnozstvi: req.body.mnozstvi,
-            IDproduktu: req.body.IDproduktu,
+            IDproduktu: ID_produktu,
             obrazekProduktu: req.body.obrazekProduktu,
             PorduktyInfo: PorduktyInfo
         }
