@@ -3,6 +3,7 @@ const router = express.Router();
 const ModelCategory = require('../modules/ModelCategory');
 const ModelProduct = require('../modules/ModelProduct');
 const ModelCart = require('../modules/ModelCart');
+var validator = require('validator');
 
 router.get('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
@@ -15,7 +16,11 @@ router.get('/', async function(req, res){
     req.session.resetMaxAge
 });
 
+router.delete('/:ID_produktu', async function(req, res){
+    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.filter(polozka => polozka.ID_produktu != req.params.ID_produktu)
+});
 
+router.post('/');
 
 
 router.post('/', async function(req, res){
@@ -68,7 +73,36 @@ router.post('/', async function(req, res){
 
 router.post('/objednavka-odeslana', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();
-    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
+
+    if (!validator.isLength(req.body.jmeno, {min: 2})) {
+        res.status(400).send();
+    }
+    if (!validator.isLength(req.body.prijmeni, {min: 2})) {
+        res.status(400).send();
+    }
+    if (!validator.isMobilePhone(req.body.telefon, 'cs-CZ' , {min: 9})) {
+        res.status(400).send();
+    }
+    if (!validator.isEmail(req.body.email)) {
+        res.status(400).send();
+    }
+    if (!validator.isLength(req.body.uliceČP, {min: 2})) {
+        res.status(400).send();
+    }
+    if (!validator.isLength(req.body.psč, {min: 5})) {
+        res.status(400).send();
+    }
+    if (!validator.isLength(req.body.mesto, {min: 2})) {
+        res.status(400).send();
+    }
+    if (!validator.isBoolean(req.body.souhlasObchodnichPodminek, {loose: true})) {
+        res.status(400).send();
+    }
+    
+    
+    
+
+    /*const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
     const ID_produktu = 0;
      mnozstviVObjednavce = 0;
     
@@ -79,7 +113,7 @@ router.post('/objednavka-odeslana', async function(req, res){
 
     });
 
-    ModelCart.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);
+    ModelCart.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);*/
     
     res.render('../views/cartPage/succesOrder.ejs', { categoriesTree})
 });
