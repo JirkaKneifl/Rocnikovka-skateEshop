@@ -73,14 +73,14 @@ router.post('/objednavka-odeslana', async function(req, res){
      mnozstviVObjednavce = 0;
     
     
-    dataPridejDoKosikuSession.forEach(produkt => {
+    /*dataPridejDoKosikuSession.forEach(produkt => {
          ID_produktu = produkt.IDproduktu;
          mnozstviVObjednavce = req.body.mnozstviProduktu;
 
     });
 
     ModelCart.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);
-    
+    */
     res.render('../views/cartPage/succesOrder.ejs', { categoriesTree})
 });
 
