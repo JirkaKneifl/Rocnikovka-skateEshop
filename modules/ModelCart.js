@@ -15,10 +15,10 @@ function query(sql) {
     })
 }
 
-async function SelectCenaProduktu(ID_produktu) {
-    return query(`SELECT cena FROM produkty WHERE ID_produktu = '${ID_produktu}'`);
+async function InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce) {
+    return query(`INSERT INTO objednavky_produkty ('${ID_produktu}', '${ID_objednavky}' , '${aktualniCenaProduktu}' , '${mnozstviVObjednavce}')`);
   }
 
 module.exports = {
-    SelectCenaProduktu
+    InsertDoObjednavky_Produkty
     };

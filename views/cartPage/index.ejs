@@ -1,6 +1,6 @@
 <%- include('../layouts/partials/nav-bar.ejs'); %>
 <% if (dataPridejDoKosikuSession) { %>
-<form action="" method="post">
+<form action="/kosik/objednavka-odeslana" method="post">
   <div class="border p-2 mt-2 mb-2">
     <h1 class="d-flex justify-content-center p-2">Souhrn produktů</h1>
     <table class="table table-borderless p-2">
@@ -17,16 +17,28 @@
             <th scope="row">
                 <img src="<%= produkt.obrazekProduktu %>" style="width: 70px; height: 70px;">
                 <label class="p-2"><%= produkt.nazev %></label><!--Nazev-->
+                <input type="hidden" name="nazevProduktu" value="<%= produkt.nazev %>">
             </th>
-                <td><input type="number" class="form-control p-2" value="<%= produkt.mnozstvi %>"></td><!--Mnozstvi-->
+                <td>
+                    <input type="number" class="form-control p-2" name="mnozstviProduktu" value="<%= produkt.mnozstvi %>">
+                </td><!--Mnozstvi-->
                 <% (produkt.PorduktyInfo).forEach(produkt => { %>
-                <td><label class="p-2"><%= produkt.cena %></label></td><!--Cena-->
+                <td>
+                    <label class="p-2"><%= produkt.cena %></label>
+                    <input type="hidden" name="cenaProduktu" value="<%= produkt.cena %>">
+                </td><!--Cena-->
                 <% }) %> 
-                <td><button class="btn btn-danger p-2">Odeber</button></td>
+                <td>
+                    <button class="btn btn-danger p-2">Odeber</button>
+                </td>
           </tr>
           <% }) %>
         </tbody>
       </table>
+      <div class="row">
+        <h2>Celkova cena: </h2>
+            <input type="hidden" name="celkovaCena" value="">
+      </div>
   </div>
 
 <!-- Udaje a doprava -->
@@ -40,30 +52,30 @@
                 <div class="col-md-6">
                     <h3>Kontaktní údaje</h3>
                     <label class="label p-1">Jméno</label>
-                    <input type="text" class="form-control p-1">
+                    <input type="text" class="form-control p-1" name="jmeno">
                       
                     <label class="label p-1">Příjmení</label>
-                    <input type="text" class="form-control p-1">
+                    <input type="text" class="form-control p-1" name="prijmeni">
 
                     <label class="label p-1">Telefon</label>
-                    <input type="tel" class="form-control p-1">
+                    <input type="tel" class="form-control p-1" name="telefon">
 
                     <label class="label p-1">Email</label>
-                    <input type="email" class="form-control p-1">
+                    <input type="email" class="form-control p-1" name="email">
                 </div>
                 <div class="col-md-6">
                     <h3>Fakturační údaje</h3>
                     <label class="label p-1">Ulice a č.p.</label>
-                    <input type="text" class="form-control p-1" >
+                    <input type="text" class="form-control p-1" name="uliceČ.P">
 
                     <div class="row">
                         <div class="col-md-4">
                             <label class="label p-1">PSČ</label>
-                            <input type="text" class="form-control p-1">
+                            <input type="text" class="form-control p-1" name="psč">
                         </div>
                         <div class="col-md-8">
                             <label class="label p-1">Město</label>
-                            <input type="text" class="form-control p-1" >
+                            <input type="text" class="form-control p-1" name="mesto">
                         </div>
                     </div>
                 </div>
@@ -71,7 +83,7 @@
             <div class="p-3"></div>
                 <div class="row p-2">
                     <h3 class="p-2">Poznámka k objednávce</h3>
-                    <textarea class="form-control p-2" rows="5"></textarea>
+                    <textarea class="form-control p-2" rows="5" name="poznamkaKObjednavce"></textarea>
                 </div>
             </div>
             
