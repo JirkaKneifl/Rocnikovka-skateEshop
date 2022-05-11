@@ -1,6 +1,9 @@
 <%- include('../layouts/partials/nav-bar.ejs'); %>
+<script>
+    var aktualniMnozstvi = document.getElementsByClassName('')
+</script>
 <% if (dataPridejDoKosikuSession) { %>
-<form action="/kosik/objednavka-odeslana" method="post">
+
   <div class="border p-2 mt-2 mb-2">
     <h1 class="d-flex justify-content-center p-2">Souhrn produktů</h1>
     <table class="table table-borderless p-2">
@@ -17,7 +20,6 @@
             <th scope="row">
                 <img src="<%= produkt.obrazekProduktu %>" style="width: 70px; height: 70px;">
                 <label class="p-2"><%= produkt.nazev %></label><!--Nazev-->
-                <input type="hidden" name="nazevProduktu" value="<%= produkt.nazev %>">
             </th>
                 <td>
                     <input type="number" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
@@ -29,13 +31,16 @@
                 </td><!--Cena-->
                 <% }) %> 
                 <td>
-                    <form action="/kosik/<%= produkt.IDproduktu %> " method="DELETE">
+                    <form action="kosik/<%= produkt.IDproduktu %> " method="DELETE">
                         <div class="submit-block"> 
-                            <button type="submit" class="btn btn-success">Odebrat</button>
+                            <button type="submit" class="btn btn-danger">Odebrat</button>
                         </div>
                       </form>
                 </td>
           </tr>
+<form action="/objednavka-odeslana" method="post"></form>
+          <input type="hidden" name="nazevProduktu" value="<%= produkt.nazev %>">
+          <input type="hidden" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
           <% }) %>
         </tbody>
       </table>
@@ -56,30 +61,30 @@
                 <div class="col-md-6">
                     <h3>Kontaktní údaje</h3>
                     <label class="label p-1">Jméno</label>
-                    <input type="text" class="form-control p-1" name="jmeno" required>
+                    <input type="text" class="form-control p-1" name="jmeno" >
                       
                     <label class="label p-1">Příjmení</label>
-                    <input type="text" class="form-control p-1" name="prijmeni" required>
+                    <input type="text" class="form-control p-1" name="prijmeni" >
 
                     <label class="label p-1">Telefon</label>
-                    <input type="tel" class="form-control p-1" name="telefon" required>
+                    <input type="tel" class="form-control p-1" name="telefon" >
 
                     <label class="label p-1">Email</label>
-                    <input type="email" class="form-control p-1" name="email" required>
+                    <input type="email" class="form-control p-1" name="email" >
                 </div>
                 <div class="col-md-6">
                     <h3>Fakturační údaje</h3>
                     <label class="label p-1">Ulice a č.p.</label>
-                    <input type="text" class="form-control p-1" name="uliceČP" required>
+                    <input type="text" class="form-control p-1" name="uliceČP" >
 
                     <div class="row">
                         <div class="col-md-4">
                             <label class="label p-1">PSČ</label>
-                            <input type="text" class="form-control p-1" name="psč" required>
+                            <input type="text" class="form-control p-1" name="psč" >
                         </div>
                         <div class="col-md-8">
                             <label class="label p-1">Město</label>
-                            <input type="text" class="form-control p-1" name="mesto" required>
+                            <input type="text" class="form-control p-1" name="mesto" >
                         </div>
                     </div>
                 </div>
@@ -92,7 +97,7 @@
             </div>
             
                 <div class="form-check p-3">
-                    <input class="form-check-input" type="checkbox" id="gridCheck" name="souhlasObchodnichPodminek" required>
+                    <input class="form-check-input" type="checkbox" id="gridCheck" name="souhlasObchodnichPodminek" >
                     <label class="form-check-label" for="gridCheck" >
                         Souhlasím s Obchodními podmínkami, beru na vědomí Zásady zpracování osobních údajů a zavazuji se k platbě. 
                     </label>
@@ -142,7 +147,7 @@
             var noveMnozstvi = parseInt(event.target.value);
             console.log(id, noveMnozstvi); 
 
-            fetch('http://locallhost:3000/kosik/', {
+            fetch('http://localhost:3000/kosik', {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
