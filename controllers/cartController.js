@@ -4,6 +4,15 @@ const ModelCategory = require('../modules/ModelCategory');
 const ModelProduct = require('../modules/ModelProduct');
 const ModelCart = require('../modules/ModelCart');
 
+router.delete('/:ID_produktu', async function(req, res){
+    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.filter(polozka => polozka.ID_produktu != req.params.ID_produktu)
+
+    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
+    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession  })
+    req.session.resetMaxAge
+});
+
+
 router.get('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     
