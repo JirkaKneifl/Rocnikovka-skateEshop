@@ -22,7 +22,7 @@
                 <label class="p-2"><%= produkt.nazev %></label><!--Nazev-->
             </th>
                 <td>
-                    <input type="number" class="form-control p-2" name="mnozstviProduktu" value="<%= produkt.mnozstvi %>">
+                    <input type="number" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
                 </td><!--Mnozstvi-->
                 <% (produkt.PorduktyInfo).forEach(produkt => { %>
                 <td>
@@ -31,18 +31,19 @@
                 </td><!--Cena-->
                 <% }) %> 
                 <td>
-
-                    <form action="kosik/<%= produkt.IDproduktu %> " method="DELETE">
                         <div class="submit-block"> 
-                            <button type="submit" class="btn btn-danger">Odebrat</button>
+                            <a href="/kosik/delete/<%= produkt.IDproduktu %> "><button type="submit" class="btn btn-danger">Odebrat</button></a>
                         </div>
-                      </form>
                 </td>
           </tr>
-<form action="/objednavka-odeslana" method="post"></form>
+
           <input type="hidden" name="nazevProduktu" value="<%= produkt.nazev %>">
+          <input type="hidden" name="ID_produktu" value="<%= produkt.IDproduktu %>">
           <input type="hidden" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
+          <input type="hidden" name="cestaKObrazkuProduktu" value="<%= produkt.obrazekProduktu %>">
+          
           <% }) %>
+          <form action="/objednavka-odeslana" method="post">
         </tbody>
       </table>
       <div class="row">
