@@ -6,12 +6,27 @@ const ModelCart = require('../modules/ModelCart');
 
 
 router.get('/delete/:ID_produktu', async function(req, res){
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
-    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.filter(polozka => polozka.ID_produktu != req.params.ID_produktu)
-
-    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
-    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession  })
+    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.filter(polozka => {
+        return polozka.IDproduktu != req.params.ID_produktu;
+    })
+    
+    res.redirect('/kosik')
     req.session.resetMaxAge();
+});
+
+router.post('/uprava-mnozstvi/:ID_produktu', function(req, res) {
+    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.map(polozka => {
+        if (polozka.IDproduktu == req.params.ID_produktu) {
+            return {
+                ...polozka, 
+                mnozstvi: req.body.noveMnozstvi
+            };
+        }else {
+            return polozka; //polozka ktera se nemneni
+        }
+    })
+    res.status(201);
+    res.send();
 });
 
 

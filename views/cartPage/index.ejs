@@ -2,7 +2,7 @@
 <script>
     var aktualniMnozstvi = document.getElementsByClassName('')
 </script>
-<% if (dataPridejDoKosikuSession) { %>
+<% if (dataPridejDoKosikuSession && dataPridejDoKosikuSession.length) { %>
 
   <div class="border p-2 mt-2 mb-2">
     <h1 class="d-flex justify-content-center p-2">Souhrn produktů</h1>
@@ -26,7 +26,7 @@
                 </td><!--Mnozstvi-->
                 <% (produkt.PorduktyInfo).forEach(produkt => { %>
                 <td>
-                    <label class="p-2"><%= produkt.cena %></label>
+                    <label class="p-2"><%= produkt.cena %> Kč</label>
                     <input type="hidden" name="cenaProduktu" value="<%= produkt.cena %>">
                 </td><!--Cena-->
                 <% }) %> 
@@ -35,13 +35,7 @@
                             <a href="/kosik/delete/<%= produkt.IDproduktu %> " class="btn btn-danger">Odebrat</a>
                         </div>
                 </td>
-          </tr>
-
-          <input type="hidden" name="nazevProduktu" value="<%= produkt.nazev %>">
-          <input type="hidden" name="ID_produktu" value="<%= produkt.IDproduktu %>">
-          <input type="hidden" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
-          <input type="hidden" name="cestaKObrazkuProduktu" value="<%= produkt.obrazekProduktu %>">
-          
+          </tr>          
           <% }) %>
           <form action="/objednavka-odeslana" method="post">
         </tbody>
@@ -153,7 +147,7 @@
             var noveMnozstvi = parseInt(event.target.value);
             console.log(id, noveMnozstvi); 
 
-            fetch('http://localhost:3000/kosik', {
+            fetch('http://localhost:3000/kosik/uprava-mnozstvi/' + id, {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"

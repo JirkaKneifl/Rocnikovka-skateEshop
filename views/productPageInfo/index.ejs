@@ -38,7 +38,10 @@
 <div class="col-md-6">
   <h1><%= produkt.nazev %></h1>
   <h2><%= produkt.cena %> Kč</h2>
-  <form action="/kosik" method="post">
+  <% if ( polozkyVKosiku?.some(polozka => polozka.IDproduktu == produkt.ID_produktu)) { // otaznik mi dela to ze jestli polozkyVKosiku jsou undefine tak se provede else %>
+    <button class="btn btn-success" disabled>Produkt už je v košíku</button>
+    <% }else{ %> 
+<form action="/kosik" method="post">
     <input type="hidden" name="nazev" value="<%= produkt.nazev %> ">
     <input type="hidden" name="mnozstvi" value="1">
     <input type="hidden" name="IDproduktu" value="<%= produkt.ID_produktu %>">
@@ -46,7 +49,8 @@
     <div class="submit-block"> 
         <button type="submit" class="btn btn-success">Vložit do košíku</button>
     </div>
-  </form>
+</form>
+  <% } %>
 </div>
 
 <!-- popis produktu -->
