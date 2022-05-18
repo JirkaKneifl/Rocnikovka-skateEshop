@@ -42,7 +42,7 @@ app.use('/', homePageRout);
 app.use('/kategorie', productPageRout);
 app.use('/kategorie/produkty', productPageRout);
 app.use('/kosik', cartPageRout);
-app.use('/kosik/objednavka-odeslana', cartPageRout );
+app.use('/kosik/objednavka-odeslana', cartPageRout)
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);

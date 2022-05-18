@@ -2,6 +2,7 @@
 <script>
     var aktualniMnozstvi = document.getElementsByClassName('')
 </script>
+<form action="/kosik/objednavka-odeslana" method="POST">
 <% if (dataPridejDoKosikuSession && dataPridejDoKosikuSession.length) { %>
 
   <div class="border p-2 mt-2 mb-2">
@@ -37,7 +38,7 @@
                 </td>
           </tr>          
           <% }) %>
-          <form action="/objednavka-odeslana" method="post">
+          
         </tbody>
       </table>
       <div class="row">
@@ -57,32 +58,32 @@
                 <div class="col-md-6">
                     <h3>Kontaktní údaje</h3>
                     <label class="label p-1">Jméno</label>
-                    <input type="text" class="form-control p-1" name="jmeno" >
+                    <input type="text" class="form-control p-1" name="jmeno" required>
                       
                     <label class="label p-1">Příjmení</label>
-                    <input type="text" class="form-control p-1" name="prijmeni" >
+                    <input type="text" class="form-control p-1" name="prijmeni" required>
 
                     <label class="label p-1">Telefon</label>
-                    <input type="tel" class="form-control p-1" name="telefon" >
+                    <input type="tel" class="form-control p-1" name="telefon" required>
 
                     <label class="label p-1">Email</label>
-                    <input type="email" class="form-control p-1" name="email" >
+                    <input type="email" class="form-control p-1" name="email" required>
 
                 </div>
                 <div class="col-md-6">
                     <h3>Fakturační údaje</h3>
                     <label class="label p-1">Ulice a č.p.</label>
-                    <input type="text" class="form-control p-1" name="uliceČP" >
+                    <input type="text" class="form-control p-1" name="uliceČP" required>
 
                     <div class="row">
                         <div class="col-md-4">
-                            <label class="label p-1">PSČ</label>
+                            <label class="label p-1">PSČ</label required>
 
-                            <input type="text" class="form-control p-1" name="psč" >
+                            <input type="text" class="form-control p-1" name="psč" required>
                         </div>
                         <div class="col-md-8">
                             <label class="label p-1">Město</label>
-                            <input type="text" class="form-control p-1" name="mesto" >
+                            <input type="text" class="form-control p-1" name="mesto" required>
                         </div>
                     </div>
                 </div>
@@ -96,7 +97,7 @@
             
                 <div class="form-check p-3">
 
-                    <input class="form-check-input" type="checkbox" id="gridCheck" name="souhlasObchodnichPodminek" >
+                    <input class="form-check-input" type="checkbox" id="gridCheck" name="souhlasObchodnichPodminek" required>
                     <label class="form-check-label" for="gridCheck" >
                         Souhlasím s Obchodními podmínkami, beru na vědomí Zásady zpracování osobních údajů a zavazuji se k platbě. 
                     </label>
