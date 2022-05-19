@@ -13,6 +13,7 @@ const registerRout = require('./controllers/register')
 const loginRout = require('./controllers/login')
 const productPageRout = require('./controllers/categoryProducsController')
 const cartPageRout = require('./controllers/cartController')
+const orderPageRout = require('./controllers/orderController')
 
 
 //console.log(process.env)
@@ -42,7 +43,7 @@ app.use('/', homePageRout);
 app.use('/kategorie', productPageRout);
 app.use('/kategorie/produkty', productPageRout);
 app.use('/kosik', cartPageRout);
-app.use('/kosik/objednavka-odeslana', cartPageRout)
+app.use('/objednavka-odeslana', orderPageRout);
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);
