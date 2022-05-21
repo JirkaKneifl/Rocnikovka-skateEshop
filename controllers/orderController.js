@@ -5,6 +5,7 @@ const ModelProduct = require('../modules/ModelProduct');
 const ModelOrder = require('../modules/ModelOrder');
 var validator = require('validator');
 const { on } = require("../modules/databaseConection");
+const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
 
 router.post('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();
@@ -19,8 +20,22 @@ router.post('/', async function(req, res){
     console.log(req.body.mesto)
     console.log(req.body.poznamkaKObjednavce)
     console.log(req.body.souhlasObchodnichPodminek)
+    const celkovaCenaObjednavky = VypoctiCelkovouCenu(dataPridejDoKosikuSession);
     
-    await ModelOrder.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);
+    const InsertDoObjednavky = await ModelOrder.InsertDoObjednavky(
+        req.body.jmeno, req.body.prijmeni,
+        req.body.telefon, req.body.email, 
+        req.body.uliceČP, req.body.psč, 
+        req.body.mesto, 
+        req.body.poznamkaKObjednavce, 
+        celkovaCenaObjednavky
+        )
+
+    await Promise.all(dataPridejDoKosikuSession.map(polozka => {// kdyz mi vznikne více zapisu do DB tak zapisuju vsechny najednou a cekam az vsechny skonci
+        return ModelOrder.InsertDoObjednavky_Produkty(polozka.IDproduktu, polozka.nazev, InsertDoObjednavky.insertId, polozka.CenaJednePolozky ,polozka.mnozstvi)   
+    }));
+    
+       
     /*
      if (!validator.isLength(req.body.jmeno, {min: 2})) {
         console.log("jmeno")

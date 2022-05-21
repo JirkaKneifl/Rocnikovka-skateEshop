@@ -1,9 +1,9 @@
 const spojeni = require("./databaseConection");
 
-function query(sql) {
+function query(sql, parametry) {
     return new Promise(function(resolve, reject){
         try {
-            spojeni.query(sql, function(err, results){
+            spojeni.query(sql, parametry, function(err, results){
                 if(err){
                     return reject(err);
                 }
@@ -15,22 +15,39 @@ function query(sql) {
     })
 }
 
-async function InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce) {
-    return query(`INSERT INTO objednavky_produkty ('${ID_produktu}', '${ID_objednavky}' , '${aktualniCenaProduktu}' , '${mnozstviVObjednavce}')`);
+async function InsertDoObjednavky_Produkty(ID_produktu, nazveProduktu, ID_objednavky, CenaProduktu, mnozstviVObjednavce) {
+    return query(`INSERT INTO objednavky_produkty VALUES
+    (?, ?, ?, ?, ?)`
+    , [ID_produktu, nazveProduktu, ID_objednavky, CenaProduktu, mnozstviVObjednavce]);
   }
 
-async function InsertDoObjednavky(){
-    return query(`INSERT INTO objednavky (null, NOW(), )`)
+ function InsertDoObjednavky(jmeno, prijmeni, telefon, email, ulice_cp, psc, mesto, popis, celkovaCenaObjednavky){
+    return query(`INSERT INTO objednavky VALUES
+    (
+        null, 
+        NOW(),
+        null,
+        null,
+        null,
+        null,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        1,
+        ?
+         )`, [jmeno, prijmeni, telefon, email, ulice_cp, psc, mesto, popis, celkovaCenaObjednavky]
+    )
 };
 
-async function InsertDoZakaznici(){
-    return query(`INSERT INTO zakaznici`)
-};
 
 
 
 module.exports = {
     InsertDoObjednavky_Produkty,
     InsertDoObjednavky,
-    InsertDoZakaznici
     };

@@ -25,12 +25,12 @@
                 <td>
                     <input type="number" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
                 </td><!--Mnozstvi-->
-                <% (produkt.PorduktyInfo).forEach(produkt => { %>
+                
                 <td>
-                    <label class="p-2"><%= produkt.cena %> Kč</label>
-                    <input type="hidden" name="cenaProduktu" value="<%= produkt.cena %>">
+                    <label class="p-2"><%= produkt.CenaJednePolozky %> Kč</label>
+                    <input type="hidden" name="cenaProduktu" value="<%= produkt.CenaJednePolozky %>">
                 </td><!--Cena-->
-                <% }) %> 
+                
                 <td>
                         <div class="submit-block"> 
                             <a href="/kosik/delete/<%= produkt.IDproduktu %> " class="btn btn-danger">Odebrat</a>
@@ -42,7 +42,7 @@
         </tbody>
       </table>
       <div class="row">
-        <h2>Celkova cena: </h2>
+        <h2>Celkova cena: <%= CelkovaCena %> </h2>
             <input type="hidden" name="celkovaCena" value="">
       </div>
   </div>

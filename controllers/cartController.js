@@ -4,21 +4,25 @@ const ModelCategory = require('../modules/ModelCategory');
 const ModelProduct = require('../modules/ModelProduct');
 const ModelCart = require('../modules/ModelCart');
 var validator = require('validator');
+const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
 
 router.get('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
+    var CelkovaCena = 0;
 
     if (dataPridejDoKosikuSession) {
         dataPridejDoKosikuSession.forEach(element => {
             console.log("element.mnozstvi: ", element.mnozstvi)
+            
         });
+        CelkovaCena = VypoctiCelkovouCenu(dataPridejDoKosikuSession);
     }
         
     
     
     console.log("req.session.cookie.maxAge: " + req.session.cookie.maxAge)
-    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession  })
+    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession , CelkovaCena });
     req.session.resetMaxAge()
 });
 
@@ -31,7 +35,7 @@ router.post('/', async function(req, res){
     }
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const ID_produktu = req.body.IDproduktu;
-    const PorduktyInfo = await ModelProduct.SelectDataJednohoProduktu(ID_produktu);
+    const CenaJednePolozky = await ModelProduct.SelectDataJednohoProduktu(ID_produktu);
 
     
     //abych vypocital celkovou cenu:
@@ -42,7 +46,6 @@ router.post('/', async function(req, res){
     // v html kosiku zpracuju sesion a vyberu si celkovou cenu dane polozky u vsech polozek -> a následně tyhle vsechny celkove ceny sectu a vypisu jako celkovou cenu celeho kosiku
 
     
-
    
     const dataPridejDoKosikuNovouPolozku = 
         {
@@ -50,52 +53,15 @@ router.post('/', async function(req, res){
             mnozstvi: req.body.mnozstvi,
             IDproduktu: ID_produktu,
             obrazekProduktu: req.body.obrazekProduktu,
-            PorduktyInfo: PorduktyInfo
+            CenaJednePolozky: CenaJednePolozky
         }
     req.session.dataPridejDoKosiku = [...req.session.dataPridejDoKosiku , dataPridejDoKosikuNovouPolozku] ; //vytvorim nove pole do ktereho zkopiruju stare a pridam na konec novou polozku
     const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
 
-    console.log("dataPridejDoKosikuSession: ",dataPridejDoKosikuSession)
     
-        for (let index = 0; index < dataPridejDoKosikuSession.length; index++) {
-            
-            dataPridejDoKosikuSession.forEach(element => {
-                console.log("element.mnozstvi: ", element.mnozstvi)
-                const mnozstviJendePolozky = element.mnozstvi;
-         
-                PorduktyInfo.forEach(element => {
-                     console.log("element cena: ",element.cena)
-                     const cenaJednePolozky = element.cena;
-                     const cenaKuMnozstviJednePolozky = cenaJednePolozky * mnozstviJendePolozky;
-                     console.log("cenaKuMnozstviJednePolozky: ",cenaKuMnozstviJednePolozky)
-                });
-             });
-        }
 
-    /*function VypoctiCelkovouCenu(){
-        var celkovaCenaVsechProduktu = 0;
-        var celkovaCenaProduktuDleIdNasobenaMnozstvim = 0;
-
-        for(var i = 0; i < dataPridejDoKosikuSession.length; i++){
-            
-            var mnozstviJednohoProduktuDleID = dataPridejDoKosikuSession[i].mnozstvi;
-            var cenaJednohoProduktuDleID = 0;
-            console.log("mnozstviJednohoProduktuDleID: " + mnozstviJednohoProduktuDleID)
-            console.log(dataPridejDoKosikuSession[i].PorduktyInfo);
-
-            (dataPridejDoKosikuSession[i].PorduktyInfo).forEach(info => {
-                console.log(info.cena);
-                cenaJednohoProduktuDleID = info.cena;
-            });
-            celkovaCenaProduktuDleIdNasobenaMnozstvim = cenaJednohoProduktuDleID * mnozstviJednohoProduktuDleID;
-        }
-        
-
-        return celkovaCenaVsechProduktu;
-    };*/
-
-
-    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession , PorduktyInfo })
+    
+    res.redirect('/kosik');
     console.log("dataPridejDoKosikuSession: ", dataPridejDoKosikuSession)
     req.session.resetMaxAge();
 });
