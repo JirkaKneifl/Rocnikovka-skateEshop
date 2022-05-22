@@ -35,18 +35,8 @@ router.post('/', async function(req, res){
     }
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const ID_produktu = req.body.IDproduktu;
-    const CenaJednePolozky = await ModelProduct.SelectDataJednohoProduktu(ID_produktu);
+    const CenaJednePolozky = await ModelProduct.SelectCenaJednohoProduktu(ID_produktu);
 
-    
-    //abych vypocital celkovou cenu:
-    // musim projet session produktu v kosiku zjistim mnozstvi dane polozky
-    // pak projedu ProduktyInfo abych zjistil cenu u dané položky  
-    // tyhle dva udaje vezmu a vynasobim je -> dostanu celkovou cenu jednoho produktu (zahrnuje cenu na mnozstvi...)
-    // celkovou cenu jednoho produktu pridam do session k dane polozce...
-    // v html kosiku zpracuju sesion a vyberu si celkovou cenu dane polozky u vsech polozek -> a následně tyhle vsechny celkove ceny sectu a vypisu jako celkovou cenu celeho kosiku
-
-    
-   
     const dataPridejDoKosikuNovouPolozku = 
         {
             nazev: req.body.nazev,

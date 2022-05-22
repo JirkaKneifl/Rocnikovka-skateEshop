@@ -6,20 +6,18 @@ const ModelOrder = require('../modules/ModelOrder');
 var validator = require('validator');
 const { on } = require("../modules/databaseConection");
 const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
+const nodemailer = require("nodemailer");
+
+let transporter = nodemailer.createTransport({
+    host: "localhost",//adresa serveruz v dockeru
+    port: 25,//port dockeru
+    secure: false, // true for 465, false for other ports
+  });
 
 router.post('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();
     const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
     
-    console.log(req.body.jmeno)
-    console.log(req.body.prijmeni)
-    console.log(req.body.telefon)
-    console.log(req.body.email)
-    console.log(req.body.uliceČP)
-    console.log(req.body.psč)
-    console.log(req.body.mesto)
-    console.log(req.body.poznamkaKObjednavce)
-    console.log(req.body.souhlasObchodnichPodminek)
     const celkovaCenaObjednavky = VypoctiCelkovouCenu(dataPridejDoKosikuSession);
     
     const InsertDoObjednavky = await ModelOrder.InsertDoObjednavky(
@@ -78,7 +76,21 @@ router.post('/', async function(req, res){
 
     ModelCart.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);
     */
+    var nazevPolozky;
+    dataPridejDoKosikuSession.forEach(polozka => {
+        nazevPolozky = polozka.nazev
+    });
 
+    let info = await transporter.sendMail({
+        from: '"Jirka" <Jirka.kneifl@email.cz>', // sender address
+        to: req.body.email, // list of receivers
+        subject: "Severe Downhill Shop", // Subject line
+        text: "Vaše objednávka na Severe Downhill Shop byla dokončena!", // plain text body
+        html: `
+        
+        
+        ` // html body
+      });
 
     res.render('../views/cartPage/succesOrder.ejs', { categoriesTree , dataPridejDoKosikuSession})
 });

@@ -1,0 +1,33 @@
+<h2>Admin sekce</h2>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Cislo</th>
+        <th scope="col">Datum přijetí</th>
+        <th scope="col">Jmeno zákazníka</th>
+        <th scope="col">Telefon</th>
+        <th scope="col">Email</th>
+        <th scope="col">Stav objednávky</th>
+        <th scope="col">Cena objednávky</th>
+        <th> </th>
+      </tr>
+    </thead>
+    <tbody>
+        <% VsechnyObjednavky.forEach(objednavka => { %>
+            <% var datumCesky = new Date(objednavka.dat_prijeti) %> 
+      <tr>
+        <th scope="row"><%= objednavka.cislo %> </th>
+        <td><%= datumCesky.getDate() %>. <%= datumCesky.getMonth() + 1 %>. <%= datumCesky.getFullYear() %></td>
+        <td><%= objednavka.jmeno %> <%= objednavka.prijmeni %></td>
+        <td><%= objednavka.telefon %></td>
+        <td><%= objednavka.email %></td>
+        <td><%= objednavka.nazev %></td>
+        <td><%= objednavka.celkovaCena %></td>
+        <td><a href="http://localhost:3000/login/admin-sekce/<%= objednavka.cislo %>" ><button class="btn btn-primary">Upravit</button></a></td>
+      </tr>
+      <% }) %> 
+    </tbody>
+  </table>
+
+

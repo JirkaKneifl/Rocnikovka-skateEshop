@@ -1,0 +1,55 @@
+<h2>Admin sekce</h2>
+
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Cislo</th>
+        <th scope="col">Datum přijetí</th>
+        <th scope="col">Jmeno zákazníka</th>
+        <th scope="col">Telefon</th>
+        <th scope="col">Email</th>
+        <th scope="col">Stav objednávky</th>
+        <th scope="col">Cena objednávky</th>
+      </tr>
+    </thead>
+    <tbody>
+        
+            <% var datumCesky = new Date(objednavka.dat_prijeti) %> 
+      <tr>
+        <th scope="row"><%= objednavka.cislo %> </th>
+        <td><%= datumCesky.getDate() %>. <%= datumCesky.getMonth() + 1 %>. <%= datumCesky.getFullYear() %></td>
+        <td><%= objednavka.jmeno %> <%= objednavka.prijmeni %></td>
+        <td><%= objednavka.telefon %></td>
+        <td><%= objednavka.email %></td>
+        <td><%= objednavka.nazev %></td>
+        <td><%= objednavka.celkovaCena %></td>
+      </tr>
+      
+    </tbody>
+  </table> 
+
+  <h3>Položky:</h3>
+
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">Nazev</th>
+        <th scope="col">Cena</th>
+        <th scope="col">Mnozstvi</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% radkyObjednavky.forEach(radek => { %>  
+      <tr>
+        <th scope="row"><%= radek.nazevProduktu %> </th>
+        <td><%= radek.CenaProduktu %></td>
+        <td><%= radek.mnozstviVObjednavce %></td>
+      </tr>
+      <% }) %> 
+    </tbody>
+  </table>
+
+  <% if (objednavka.ID_stav == 1) { %>
+   <a href="http://localhost:3000/login/admin-sekce/expedovat/<%= objednavka.cislo %>"><button class="btn btn-success">Expedovat</button></a>
+  <% } %>

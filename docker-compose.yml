@@ -1,0 +1,8 @@
+version: "3"
+
+services:
+  mail:
+    image: bytemark/smtp
+    ports:
+      - "25:25"
+    restart: always
