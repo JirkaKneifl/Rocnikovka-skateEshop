@@ -2,10 +2,10 @@ var mysql = require('mysql');
 
 //vytvoreni spojeni s DB
 var spojeni = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "e-shop-db-prkna"
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
 });
 
 //pouziti spojeni k overeni zda jsem pripojeni

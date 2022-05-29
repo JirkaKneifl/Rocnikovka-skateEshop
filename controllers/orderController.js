@@ -86,10 +86,7 @@ router.post('/', async function(req, res){
         to: req.body.email, // list of receivers
         subject: "Severe Downhill Shop", // Subject line
         text: "Vaše objednávka na Severe Downhill Shop byla dokončena!", // plain text body
-        html: `
-        
-        
-        ` // html body
+        html: `` // html body
       });
 
     res.render('../views/cartPage/succesOrder.ejs', { categoriesTree , dataPridejDoKosikuSession})
