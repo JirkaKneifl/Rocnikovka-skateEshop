@@ -29,7 +29,7 @@ async function SelectProduktyZPodkategorie(ID_kategorie){
 }
 
 async function SelectDataJednohoProduktu(ID_produktu){
-  return query(`SELECT * FROM produkty WHERE ID_kategorie = ?`, [ID_produktu]);
+  return query(`SELECT * FROM produkty WHERE ID_produktu = ?`, [ID_produktu]);
 }
 
 module.exports = {

@@ -8,8 +8,8 @@ router.get('/produkty/:ID_produktu?', async function (req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const { ID_produktu } = req.params;
 
-    const PorduktyInfo = await ModelProduktu.SelectDataJednohoProduktu(ID_produktu);
-    res.render('../views/productPageInfo/index.ejs', {categoriesTree, PorduktyInfo, polozkyVKosiku: req.session.dataPridejDoKosiku})
+    const PorduktInfo = await ModelProduktu.SelectDataJednohoProduktu(ID_produktu);
+    res.render('../views/productPageInfo/index.ejs', {categoriesTree, PorduktInfo, polozkyVKosiku: req.session.dataPridejDoKosiku})
 }) 
 
 //funkce rendrujici produkty do vypisu produktu dle dane URL id
