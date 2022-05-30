@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const ModulLogin = require('../modules/ModulLogin')
 const ModelOrder = require('../modules/ModelOrder')
+const ModelCategory = require('../modules/ModelCategory')
 
 //routa na login
 router.get('/', function(req, res) {
@@ -17,6 +18,7 @@ router.get('/admin-sekce', async function(req, res) {
 })
 
 router.post('/admin-sekce', async function(req, res) {
+	const categoriesTree = await ModelCategory.SelectAllCategories();
 	const VsechnyObjednavky = await ModelOrder.SelectVsechnyObjednavky();
 	const infoZamestnanec = await ModulLogin.SlectZamestnance(req.body.email);
 	const hesloZInputu = req.body.heslo;
@@ -31,14 +33,17 @@ router.post('/admin-sekce', async function(req, res) {
 	if (emailZDatabaze == emailZInputu && await bcrypt.compare(hesloZInputu, hesloZDatabaze)) {
 		req.session.infoZamestnanec = infoZamestnanec;
 		const infoZamestnanceSession = req.session.infoZamestnanec;
-		res.render('../views/adminSection/index.ejs', { infoZamestnanceSession, VsechnyObjednavky })
+		res.render('../views/adminSection/index.ejs', { infoZamestnanceSession, VsechnyObjednavky, categoriesTree })
+	}else{
+		res.redirect('/login')
 	}
 });
 
 router.get('/admin-sekce/:cisloObjednavky', async function (req, res) {
+	const categoriesTree = await ModelCategory.SelectAllCategories();
 	const [objednavka, radkyObjednavky] = await ModelOrder.SelectJednaObjednavka(req.params.cisloObjednavky);
 
-	res.render('../views/adminSection/detailObjednavky.ejs', { objednavka, radkyObjednavky})
+	res.render('../views/adminSection/detailObjednavky.ejs', { objednavka, radkyObjednavky, categoriesTree})
 });
 
 router.get('/admin-sekce/expedovat/:cisloObjednavky', async function (req, res) {

@@ -16,14 +16,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<% process.env.APP_URL %>/">Home</a>
-        </li>
-
         <!-- Shop dropdown -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
-            Shop
+            Obchod
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <% categoriesTree.forEach(category => { %>
@@ -45,12 +41,13 @@
           <a class="nav-link active" aria-current="page" href="">Video</a>
         </li>
       </ul>
-        <a href="<% process.env.APP_URL %>/kosik" class="nav-item nav-link active border rounded-3 p-2 m-2 border-success">
+      <a href="<% process.env.APP_URL %>/login" class="btn btn-outline-warning me-2">Přihlášení</a>
+        <a href="<% process.env.APP_URL %>/kosik" class="btn btn-outline-warning me-2">
           <img src="<% process.env.APP_URL %>/static/images/shopping-cart.png" style="height: auto; width: 20px;">
         </a>
       <form class="d-flex">
         <input class="form-control me-2" type="search" placeholder="Hledat" aria-label="Search"/>
-        <button class="btn btn-outline-success" type="submit">Hledat</button>
+        <button class="btn btn-outline-warning" type="submit">Hledat</button>
       </form>
     </div>
   </div>
