@@ -4,8 +4,9 @@ const ModelCategory = require('../modules/ModelCategory');
 const ModelProduct = require('../modules/ModelProduct');
 const ModelOrder = require('../modules/ModelOrder');
 var validator = require('validator');
-const { on } = require("../modules/databaseConection");
 const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
+const fs = require('fs');
+const ejs = require('ejs');
 const nodemailer = require("nodemailer");
 
 let transporter = nodemailer.createTransport({
@@ -13,6 +14,8 @@ let transporter = nodemailer.createTransport({
     port: 25,//port dockeru
     secure: false, // true for 465, false for other ports
   });
+
+
 
 router.post('/', async function(req, res){
     const categoriesTree = await ModelCategory.SelectAllCategories();
@@ -76,17 +79,27 @@ router.post('/', async function(req, res){
 
     ModelCart.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);
     */
-    var nazevPolozky;
-    dataPridejDoKosikuSession.forEach(polozka => {
-        nazevPolozky = polozka.nazev
-    });
+   console.log(dataPridejDoKosikuSession)
+
+    const HTMLMailData = await ejs.renderFile('../views/layouts/mailToSend.ejs', { 
+        dataPridejDoKosikuSession: dataPridejDoKosikuSession,
+        jmeno: req.body.jmeno,
+        prijmeni: req.body.prijmeni,
+        telefon: req.body.telefon,
+        email: req.body.email, 
+        uliceČP: req.body.uliceČP,
+        psč: req.body.psč, 
+        mesto: req.body.mesto, 
+        poznamkaKObjednavce: req.body.poznamkaKObjednavce, 
+        celkovaCenaObjednavky: celkovaCenaObjednavky
+    })
 
     let info = await transporter.sendMail({
         from: '"Jirka" <Jirka.kneifl@email.cz>', // sender address
         to: req.body.email, // list of receivers
         subject: "Severe Downhill Shop", // Subject line
         text: "Vaše objednávka na Severe Downhill Shop byla dokončena!", // plain text body
-        html: `` // html body
+        html: HTMLMailData
       });
 
     res.render('../views/cartPage/succesOrder.ejs', { categoriesTree , dataPridejDoKosikuSession})
