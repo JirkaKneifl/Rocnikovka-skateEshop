@@ -16,9 +16,7 @@ function query(sql, parametry) {
 }
 
 async function InsertDoObjednavky_Produkty(ID_produktu, nazveProduktu, ID_objednavky, CenaProduktu, mnozstviVObjednavce) {
-    return query(`INSERT INTO objednavky_produkty VALUES
-    (?, ?, ?, ?, ?)`
-    , [ID_produktu, nazveProduktu, ID_objednavky, CenaProduktu, mnozstviVObjednavce]);
+    return query(`INSERT INTO objednavky_produkty VALUES(?, ?, ?, ?, ?)`, [ID_produktu, nazveProduktu, ID_objednavky, CenaProduktu, mnozstviVObjednavce]);
   }
 
  function InsertDoObjednavky(jmeno, prijmeni, telefon, email, ulice_cp, psc, mesto, popis, celkovaCenaObjednavky){

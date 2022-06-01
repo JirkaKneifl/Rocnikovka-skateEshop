@@ -11,10 +11,11 @@ router.get('/', function(req, res) {
 })
 
 router.get('/admin-sekce', async function(req, res) {
+	const categoriesTree = await ModelCategory.SelectAllCategories();
 	const VsechnyObjednavky = await ModelOrder.SelectVsechnyObjednavky();
 	const infoZamestnanceSession = req.session.infoZamestnanec;
 
-    res.render('../views/adminSection/index.ejs', { infoZamestnanceSession, VsechnyObjednavky })
+    res.render('../views/adminSection/index.ejs', { infoZamestnanceSession, VsechnyObjednavky , categoriesTree})
 })
 
 router.post('/admin-sekce', async function(req, res) {
