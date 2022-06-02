@@ -60,32 +60,61 @@
                 <div class="col-md-6">
                     <h3>Kontaktní údaje</h3>
                     <label class="label p-1">Jméno</label>
-                    <input type="text" class="form-control p-1" name="jmeno" required>
-                      
+                    <input type="text" class="form-control p-1" name="jmeno" value="<%= errors && errors.jmeno?.hodnota? errors.jmeno.hodnota: "" %>" required>
+                    <% if (errors && errors.jmeno?.error) { %>
+                        <div class="text-danger" role="alert">
+                            <%= errors.jmeno.error %> 
+                        </div>
+                    <% } %>
                     <label class="label p-1">Příjmení</label>
-                    <input type="text" class="form-control p-1" name="prijmeni" required>
-
+                    <input type="text" class="form-control p-1" name="prijmeni" value="<%= errors && errors.prijmeni?.hodnota? errors.prijmeni.hodnota: "" %>" required>
+                    <% if (errors && errors.prijmeni?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.prijmeni?.error %> 
+                        </div>
+                    <% } %>
                     <label class="label p-1">Telefon</label>
-                    <input type="tel" class="form-control p-1" name="telefon" required>
-
+                    <input type="tel" class="form-control p-1" name="telefon" value="<%= errors && errors.telefon?.hodnota? errors.telefon.hodnota: "" %>" required>
+                    <% if (errors && errors.telefon?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.telefon.error %> 
+                        </div>
+                    <% } %>
                     <label class="label p-1">Email</label>
-                    <input type="email" class="form-control p-1" name="email" required>
-
+                    <input type="email" class="form-control p-1" name="email" value="<%= errors && errors.email?.hodnota? errors.email.hodnota: "" %>" required>
+                    <% if (errors && errors.email?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.email.error %> 
+                        </div>
+                    <% } %>
                 </div>
                 <div class="col-md-6">
                     <h3>Fakturační údaje</h3>
                     <label class="label p-1">Ulice a č.p.</label>
-                    <input type="text" class="form-control p-1" name="uliceČP" required>
-
+                    <input type="text" class="form-control p-1" name="uliceČP" value="<%= errors && errors.uliceČP?.hodnota? errors.uliceČP.hodnota: "" %>" required>
+                    <% if (errors && errors.uliceČP?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.uliceČP.error %> 
+                        </div>
+                    <% } %>
                     <div class="row">
                         <div class="col-md-4">
                             <label class="label p-1">PSČ</label>
-
-                            <input type="text" class="form-control p-1" name="psč" required>
+                            <input type="text" class="form-control p-1" name="psč" value="<%= errors && errors.psč?.hodnota? errors.psč.hodnota: "" %>" required>
+                            <% if (errors && errors.psč?.error) { %>
+                                <div class="text-danger">
+                                    <%= errors.psč.error %> 
+                                </div>
+                            <% } %>
                         </div>
                         <div class="col-md-8">
                             <label class="label p-1">Město</label>
-                            <input type="text" class="form-control p-1" name="mesto" required>
+                            <input type="text" class="form-control p-1" name="mesto" value="<%= errors && errors.mesto?.hodnota? errors.mesto.hodnota: "" %>" required>
+                            <% if (errors && errors.mesto?.error) { %>
+                                <div class="text-danger">
+                                    <%= errors.mesto.error %> 
+                                </div>
+                            <% } %>
                         </div>
                     </div>
                 </div>
@@ -98,11 +127,15 @@
             </div>
             
                 <div class="form-check p-3">
-
                     <input class="form-check-input" type="checkbox" id="gridCheck" name="souhlasObchodnichPodminek" required>
                     <label class="form-check-label" for="gridCheck" >
                         Souhlasím s Obchodními podmínkami, beru na vědomí Zásady zpracování osobních údajů a zavazuji se k platbě. 
                     </label>
+                    <% if (errors && errors.souhlasObchodnichPodminek?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.souhlasObchodnichPodminek.error %> 
+                        </div>
+                    <% } %>
                   </div>
         <button type="submit" class="btn btn-success">Odeslat objednávku</button>
     </div>

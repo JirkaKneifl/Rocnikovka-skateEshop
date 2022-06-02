@@ -7,6 +7,8 @@ var validator = require('validator');
 const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
 
 router.get('/', async function(req, res){
+    const errors = req.session.errors;
+    console.log(errors);
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
     var CelkovaCena = 0;
@@ -22,8 +24,9 @@ router.get('/', async function(req, res){
     
     
     console.log("req.session.cookie.maxAge: " + req.session.cookie.maxAge)
-    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession , CelkovaCena });
+    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession , CelkovaCena , errors});
     req.session.resetMaxAge()
+    await req.session.save();
 });
 
 
@@ -32,6 +35,7 @@ router.get('/', async function(req, res){
 router.post('/', async function(req, res){
     if(!req.session.dataPridejDoKosiku || req.session.dataPridejDoKosiku.length === undefined ){
         req.session.dataPridejDoKosiku = [];
+        
     }
     const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
     const ID_produktu = req.body.IDproduktu;
@@ -54,6 +58,7 @@ router.post('/', async function(req, res){
     res.redirect('/kosik');
     console.log("dataPridejDoKosikuSession: ", dataPridejDoKosikuSession)
     req.session.resetMaxAge();
+    await req.session.save();
 });
 
 
@@ -64,6 +69,7 @@ router.get('/delete/:ID_produktu', async function(req, res){
     
     res.redirect('/kosik')
     req.session.resetMaxAge();
+    await req.session.save();
 });
 
 router.post('/uprava-mnozstvi/:ID_produktu', function(req, res) {
