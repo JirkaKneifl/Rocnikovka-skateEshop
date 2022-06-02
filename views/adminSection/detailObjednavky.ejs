@@ -1,4 +1,4 @@
-<h2>Admin sekce</h2>
+<h2>Detail objednávky</h2>
 
 
 <table class="table">
@@ -23,7 +23,7 @@
         <td><%= objednavka.telefon %></td>
         <td><%= objednavka.email %></td>
         <td><%= objednavka.nazev %></td>
-        <td><%= objednavka.celkovaCena %></td>
+        <td><%= objednavka.celkovaCena %> Kč</td>
       </tr>
       
     </tbody>
@@ -43,7 +43,7 @@
         <% radkyObjednavky.forEach(radek => { %>  
       <tr>
         <th scope="row"><%= radek.nazevProduktu %> </th>
-        <td><%= radek.CenaProduktu %></td>
+        <td><%= radek.CenaProduktu %> Kč</td>
         <td><%= radek.mnozstviVObjednavce %></td>
       </tr>
       <% }) %> 

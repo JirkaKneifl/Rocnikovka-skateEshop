@@ -71,14 +71,6 @@ router.post('/', async function(req, res){
         res.status(400).send();
     }*/
     
-    /*dataPridejDoKosikuSession.forEach(produkt => {
-         ID_produktu = produkt.IDproduktu;
-         mnozstviVObjednavce = req.body.mnozstviProduktu;
-
-    });
-
-    ModelCart.InsertDoObjednavky_Produkty(ID_produktu, ID_objednavky, aktualniCenaProduktu, mnozstviVObjednavce);
-    */
    console.log(dataPridejDoKosikuSession)
 
     const HTMLMailData = await ejs.renderFile('../views/layouts/mailToSend.ejs', { 
