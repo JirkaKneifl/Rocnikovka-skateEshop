@@ -4,6 +4,15 @@ const router = express.Router();
 const ModulLogin = require('../modules/ModulLogin')
 const ModelOrder = require('../modules/ModelOrder')
 const ModelCategory = require('../modules/ModelCategory')
+const fs = require('fs');
+const ejs = require('ejs');
+const nodemailer = require("nodemailer");
+
+let transporter = nodemailer.createTransport({
+    host: "localhost",//adresa serveruz v dockeru
+    port: 25,//port dockeru
+    secure: false, // true for 465, false for other ports
+  });
 
 //routa na login
 router.get('/', function(req, res) {
@@ -49,6 +58,18 @@ router.get('/admin-sekce/:cisloObjednavky', async function (req, res) {
 
 router.get('/admin-sekce/expedovat/:cisloObjednavky', async function (req, res) {
 	await ModelOrder.Expedovat(req.params.cisloObjednavky);
+	const objednavka = await ModelOrder.SelectJednaObjednavka(req.params.cisloObjednavky)
+	console.log("Objednavka", objednavka)
+
+	const HTMLMailData = await ejs.renderFile(__dirname + '/../views/layouts/mailOdexpedovano.ejs', { objednavka } )
+
+	let info = await transporter.sendMail({
+        from: '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>', // sender address
+        to: objednavka[0].email, // list of receivers
+        subject: "Ore Mauntains Downhill Shop - Odexpedovali jsme vaši objednávku", // Subject line
+        text: "Vaše objednávka na Severe Downhill Shop byla dokončena!", // plain text body
+        html: HTMLMailData
+      });
 
 	res.redirect('/login/admin-sekce/')
 });

@@ -82,7 +82,7 @@ router.post('/', async function(req, res){
 
    console.log(dataPridejDoKosikuSession)
 
-    const HTMLMailData = await ejs.renderFile(__dirname + '/../views/layouts/mailToSend.ejs', { 
+    const HTMLMailData = await ejs.renderFile(__dirname + '/../views/layouts/mailPrijmutiObjednavky.ejs', { 
         dataPridejDoKosikuSession: dataPridejDoKosikuSession,
         jmeno: req.body.jmeno,
         prijmeni: req.body.prijmeni,
@@ -99,7 +99,7 @@ router.post('/', async function(req, res){
         from: '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>', // sender address
         to: req.body.email, // list of receivers
         subject: "Ore Mauntains Downhill Shop - Přijali jsme objednávku", // Subject line
-        text: "Vaše objednávka na Severe Downhill Shop byla dokončena!", // plain text body
+        text: "", // plain text body
         html: HTMLMailData
       });
 
