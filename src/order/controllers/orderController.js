@@ -1,14 +1,15 @@
 const express = require("express");
 const router = express.Router();
-const ModelCategory = require('../modules/ModelCategory');
-const ModelProduct = require('../modules/ModelProduct');
-const ModelOrder = require('../modules/ModelOrder');
+const ModelCategory = require('../../katalog/moduls/ModelCategory');
+const ModelProduct = require('../../katalog/moduls/ModelProduct');
+const ModelOrder = require('../../order/moduls/ModelOrder');
 var validator = require('validator');
-const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
+const VypoctiCelkovouCenu = require('../../../VypoctiCelkovouCenu');
 const fs = require('fs');
 const ejs = require('ejs');
 const nodemailer = require("nodemailer");
 const session = require("express-session");
+
 
 let transporter = nodemailer.createTransport({
     host: "localhost",//adresa serveruz v dockeru
@@ -103,7 +104,7 @@ router.post('/', async function(req, res){
         html: HTMLMailData
       });
 
-    res.render('../views/cartPage/succesOrder.ejs', { categoriesTree , dataPridejDoKosikuSession})
+    res.render('succesOrder', { categoriesTree , dataPridejDoKosikuSession})
 });
 
 module.exports = router;

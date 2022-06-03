@@ -1,4 +1,4 @@
-const ModulRegister = require("../modules/ModulRegister");
+const ModulRegister = require("../../admin/moduls/ModulRegister");
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");

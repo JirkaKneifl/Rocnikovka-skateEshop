@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const ModelCategory = require('../modules/ModelCategory');
-const ModelProduct = require('../modules/ModelProduct');
-const ModelCart = require('../modules/ModelCart');
+const ModelCategory = require('../../katalog/moduls/ModelCategory');
+const ModelProduct = require('../../katalog/moduls/ModelProduct');
+const ModelCart = require('../../cart/moduls/ModelCart');
 var validator = require('validator');
-const VypoctiCelkovouCenu = require('../VypoctiCelkovouCenu');
+const VypoctiCelkovouCenu = require('../../../VypoctiCelkovouCenu');
 
 router.get('/', async function(req, res){
     const errors = req.session.errors;
@@ -24,7 +24,7 @@ router.get('/', async function(req, res){
     
     
     console.log("req.session.cookie.maxAge: " + req.session.cookie.maxAge)
-    res.render('../views/cartPage/index.ejs', { categoriesTree, dataPridejDoKosikuSession , CelkovaCena , errors});
+    res.render('indexCart', { categoriesTree, dataPridejDoKosikuSession , CelkovaCena , errors});
     req.session.resetMaxAge()
     await req.session.save();
 });

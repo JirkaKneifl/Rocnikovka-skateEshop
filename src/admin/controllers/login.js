@@ -1,9 +1,9 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const router = express.Router();
-const ModulLogin = require('../modules/ModulLogin')
-const ModelOrder = require('../modules/ModelOrder')
-const ModelCategory = require('../modules/ModelCategory')
+const ModulLogin = require('../../admin/moduls/ModulLogin')
+const ModelOrder = require('../../order/moduls/ModelOrder')
+const ModelCategory = require('../../katalog/moduls/ModelCategory')
 const fs = require('fs');
 const ejs = require('ejs');
 const nodemailer = require("nodemailer");
@@ -16,7 +16,7 @@ let transporter = nodemailer.createTransport({
 
 //routa na login
 router.get('/', function(req, res) {
-    res.render('login/index')
+    res.render('indexLogin')
 })
 
 router.get('/admin-sekce', async function(req, res) {
@@ -24,7 +24,7 @@ router.get('/admin-sekce', async function(req, res) {
 	const VsechnyObjednavky = await ModelOrder.SelectVsechnyObjednavky();
 	const infoZamestnanceSession = req.session.infoZamestnanec;
 
-    res.render('../views/adminSection/index.ejs', { infoZamestnanceSession, VsechnyObjednavky , categoriesTree})
+    res.render('indexAdminSection', { infoZamestnanceSession, VsechnyObjednavky , categoriesTree})
 })
 
 router.post('/admin-sekce', async function(req, res) {
@@ -43,7 +43,7 @@ router.post('/admin-sekce', async function(req, res) {
 	if (emailZDatabaze == emailZInputu && await bcrypt.compare(hesloZInputu, hesloZDatabaze)) {
 		req.session.infoZamestnanec = infoZamestnanec;
 		const infoZamestnanceSession = req.session.infoZamestnanec;
-		res.render('../views/adminSection/index.ejs', { infoZamestnanceSession, VsechnyObjednavky, categoriesTree })
+		res.render('indexAdminSection', { infoZamestnanceSession, VsechnyObjednavky, categoriesTree })
 	}else{
 		res.redirect('/login')
 	}
@@ -53,7 +53,7 @@ router.get('/admin-sekce/:cisloObjednavky', async function (req, res) {
 	const categoriesTree = await ModelCategory.SelectAllCategories();
 	const [objednavka, radkyObjednavky] = await ModelOrder.SelectJednaObjednavka(req.params.cisloObjednavky);
 
-	res.render('../views/adminSection/detailObjednavky.ejs', { objednavka, radkyObjednavky, categoriesTree})
+	res.render('detailObjednavky', { objednavka, radkyObjednavky, categoriesTree})
 });
 
 router.get('/admin-sekce/expedovat/:cisloObjednavky', async function (req, res) {

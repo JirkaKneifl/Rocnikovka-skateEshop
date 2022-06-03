@@ -1,4 +1,4 @@
-const spojeni = require("./databaseConection");
+const spojeni = require("../../../databaseConection");
 
 function query(sql, parametry) {
   return new Promise(function (resolve, reject) {

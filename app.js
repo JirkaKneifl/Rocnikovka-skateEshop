@@ -7,14 +7,14 @@ require('dotenv').config()
 
 const app = express();
 
-const spojeni = require('./modules/databaseConection.js');//toto je tady jen abych si overil spojeni s db
-const homePageRout = require('./controllers/homePage')
-const registerRout = require('./controllers/register')
-const loginRout = require('./controllers/login')
-const productPageRout = require('./controllers/categoryProducsController')
-const cartPageRout = require('./controllers/cartController')
-const orderPageRout = require('./controllers/orderController')
-const kontaktPageRout = require('./controllers/kontaktController')
+const spojeni = require('./databaseConection');//toto je tady jen abych si overil spojeni s db
+const homePageRout = require('./src/homePage/controllers/homePage')
+const registerRout = require('./src/admin/controllers/register')
+const loginRout = require('./src/admin/controllers/login')
+const productPageRout = require('./src/katalog/controllers/categoryProducsController')
+const cartPageRout = require('./src/cart/controllers/cartController')
+const orderPageRout = require('./src/order/controllers/orderController')
+const kontaktPageRout = require('./src/kontakt/controllers/kontaktController')
 
 
 //console.log(process.env)
@@ -30,7 +30,8 @@ app.use(session({
 
 //nastaveni view enginu
 app.use(expressLayouts);
-app.set('layout', './layouts/hlavni')
+app.set('views', './src/layouts/views');
+app.set('layout', '../hlavni')
 app.set('view engine', 'ejs'); 
 
 app.use(express.json());
