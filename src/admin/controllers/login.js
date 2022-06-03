@@ -7,6 +7,7 @@ const ModelCategory = require('../../katalog/moduls/ModelCategory')
 const fs = require('fs');
 const ejs = require('ejs');
 const nodemailer = require("nodemailer");
+const AdminLoginSentDTO = require('../dto/admin-login-sent.dto')
 
 let transporter = nodemailer.createTransport({
     host: "localhost",//adresa serveruz v dockeru
@@ -28,6 +29,8 @@ router.get('/admin-sekce', async function(req, res) {
 })
 
 router.post('/admin-sekce', async function(req, res) {
+	const dto = AdminLoginSentDTO.FromRequest(req);
+	
 	const categoriesTree = await ModelCategory.SelectAllCategories();
 	const VsechnyObjednavky = await ModelOrder.SelectVsechnyObjednavky();
 	const infoZamestnanec = await ModulLogin.SlectZamestnance(req.body.email);

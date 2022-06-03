@@ -5,6 +5,7 @@ const ModelProduct = require('../../katalog/moduls/ModelProduct');
 const ModelCart = require('../../cart/moduls/ModelCart');
 var validator = require('validator');
 const VypoctiCelkovouCenu = require('../../../VypoctiCelkovouCenu');
+const CartSentDTO = require('../dto/cart-sent.dto');
 
 router.get('/', async function(req, res){
     const errors = req.session.errors;
@@ -33,6 +34,8 @@ router.get('/', async function(req, res){
 
 
 router.post('/', async function(req, res){
+    const dto = CartSentDTO.FromRequest(req);
+
     if(!req.session.dataPridejDoKosiku || req.session.dataPridejDoKosiku.length === undefined ){
         req.session.dataPridejDoKosiku = [];
         
@@ -73,6 +76,8 @@ router.get('/delete/:ID_produktu', async function(req, res){
 });
 
 router.post('/uprava-mnozstvi/:ID_produktu', function(req, res) {
+    const dto = CartSentDTO.FromRequest(req);
+
     req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.map(polozka => {
         if (polozka.IDproduktu == req.params.ID_produktu) {
             return {
