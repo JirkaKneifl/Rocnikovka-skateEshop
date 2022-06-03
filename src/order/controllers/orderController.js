@@ -83,7 +83,7 @@ router.post('/', async function(req, res){
 
    console.log(dataPridejDoKosikuSession)
 
-    const HTMLMailData = await ejs.renderFile(__dirname + '/../views/layouts/mailPrijmutiObjednavky.ejs', { 
+    const HTMLMailData = await ejs.renderFile(__dirname + '/../views/mailPrijmutiObjednavky.ejs', { 
         dataPridejDoKosikuSession: dataPridejDoKosikuSession,
         jmeno: req.body.jmeno,
         prijmeni: req.body.prijmeni,

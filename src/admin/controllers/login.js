@@ -61,7 +61,7 @@ router.get('/admin-sekce/expedovat/:cisloObjednavky', async function (req, res) 
 	const objednavka = await ModelOrder.SelectJednaObjednavka(req.params.cisloObjednavky)
 	console.log("Objednavka", objednavka)
 
-	const HTMLMailData = await ejs.renderFile(__dirname + '/../views/layouts/mailOdexpedovano.ejs', { objednavka } )
+	const HTMLMailData = await ejs.renderFile(__dirname + '/../views/mailOdexpedovano.ejs', { objednavka } )
 
 	let info = await transporter.sendMail({
         from: '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>', // sender address
