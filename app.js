@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const app = express();
 
-const spojeni = require('./databaseConection');//toto je tady jen abych si overil spojeni s db
+const spojeni = require('./src/helpers/databaseConection');//toto je tady jen abych si overil spojeni s db
 const homePageRout = require('./src/homePage/controllers/homePage')
 const registerRout = require('./src/admin/controllers/register')
 const loginRout = require('./src/admin/controllers/login')
