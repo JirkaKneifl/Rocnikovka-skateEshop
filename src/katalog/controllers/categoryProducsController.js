@@ -2,10 +2,12 @@ const express = require("express");
 const router = express.Router();
 const ModelProduktu = require('../../katalog/moduls/ModelProduct')
 const ModelCategory = require('../../katalog/moduls/ModelCategory');
+const KatalogService = require('../services/katalog.service')
+const katalogService = new KatalogService();
 
 //funkce pro generovani jednotlivych produktu
 router.get('/produkty/:ID_produktu?', async function (req, res){ 
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
+    const categoriesTree = await katalogService.ListKategorii();;//ulozeni JSON objektu do categoriesTree
     const { ID_produktu } = req.params;
 
     const PorduktInfo = await ModelProduktu.SelectDataJednohoProduktu(ID_produktu);
@@ -14,7 +16,7 @@ router.get('/produkty/:ID_produktu?', async function (req, res){
 
 //funkce rendrujici produkty do vypisu produktu dle dane URL id
 router.get('/:ID_hlavniKategorie/:ID_podkategorie?', async function (req, res){ // -> /k/:hlavniKategorie/:podkategorie?
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
+    const categoriesTree = await katalogService.ListKategorii();//ulozeni JSON objektu do categoriesTree
     const { ID_hlavniKategorie, ID_podkategorie } = req.params;
 
      if (ID_podkategorie === undefined) {

@@ -10,7 +10,7 @@ const ejs = require('ejs');
 const nodemailer = require("nodemailer");
 const session = require("express-session");
 const OrderSentDTO = require("../dto/order-sent.dto")
-
+const OrderService = require("../services/order.service")
 
 let transporter = nodemailer.createTransport({
     host: "localhost",//adresa serveruz v dockeru
@@ -45,33 +45,18 @@ router.post('/', async function(req, res){
     const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
     await req.session.save();
     
-    const celkovaCenaObjednavky = VypoctiCelkovouCenu(dataPridejDoKosikuSession);
-    
-    const InsertDoObjednavky = await ModelOrder.InsertDoObjednavky(
-        req.body.jmeno, req.body.prijmeni,
-        req.body.telefon, req.body.email, 
-        req.body.uliceČP, req.body.psč, 
-        req.body.mesto, 
-        req.body.poznamkaKObjednavce, 
-        celkovaCenaObjednavky
-        )
-
-    await Promise.all(dataPridejDoKosikuSession.map(polozka => {// kdyz mi vznikne více zapisu do DB tak zapisuju vsechny najednou a cekam az vsechny skonci
-        return ModelOrder.InsertDoObjednavky_Produkty(polozka.IDproduktu, polozka.nazev, InsertDoObjednavky.insertId, polozka.CenaJednePolozky ,polozka.mnozstvi)   
-    }));
-
-   console.log(dataPridejDoKosikuSession)
+   const Objednavka = new OrderService.VytvorObjednavku(dto, dataPridejDoKosikuSession);
 
     const HTMLMailData = await ejs.renderFile(__dirname + '/../views/mailPrijmutiObjednavky.ejs', { 
         dataPridejDoKosikuSession: dataPridejDoKosikuSession,
-        jmeno: req.body.jmeno,
-        prijmeni: req.body.prijmeni,
-        telefon: req.body.telefon,
-        email: req.body.email, 
-        uliceČP: req.body.uliceČP,
-        psč: req.body.psč, 
-        mesto: req.body.mesto, 
-        poznamkaKObjednavce: req.body.poznamkaKObjednavce, 
+        jmeno: dto.jmeno,
+        prijmeni: dto.prijmeni,
+        telefon: dto.telefon,
+        email: dto.email, 
+        uliceČP: dto.uliceČP,
+        psč: dto.psč, 
+        mesto: dto.mesto, 
+        poznamkaKObjednavce: dto.poznamkaKObjednavce, 
         celkovaCenaObjednavky: celkovaCenaObjednavky
     })
 

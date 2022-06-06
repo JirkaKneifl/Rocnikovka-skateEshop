@@ -1,6 +1,6 @@
 const spojeni = require("../../helpers/databaseConection")
 
-class AdminService {
+class LoginService {
 
     spojeni;
 
@@ -20,4 +20,4 @@ class AdminService {
 
 }
 
-module.exports = AdminService;
+module.exports = LoginService;
