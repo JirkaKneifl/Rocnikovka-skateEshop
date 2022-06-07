@@ -10,8 +10,9 @@ router.get('/produkty/:ID_produktu?', async function (req, res){
     const categoriesTree = await katalogService.ListKategorii();;//ulozeni JSON objektu do categoriesTree
     const { ID_produktu } = req.params;
 
-    const PorduktInfo = await katalogService.DetailProduktu(ID_produktu);
-    res.render('indexProductsInfo', {categoriesTree, PorduktInfo, polozkyVKosiku: req.session.dataPridejDoKosiku})
+    const produkt = await katalogService.DetailProduktu(ID_produktu);
+    console.log(produkt);
+    res.render('indexProductsInfo', {categoriesTree, produkt, polozkyVKosiku: req.session.dataPridejDoKosiku})
 }) 
 
 //funkce rendrujici produkty do vypisu produktu dle dane URL id

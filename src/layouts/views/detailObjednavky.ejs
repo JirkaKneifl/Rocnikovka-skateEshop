@@ -40,7 +40,7 @@
       </tr>
     </thead>
     <tbody>
-        <% radkyObjednavky.forEach(radek => { %>  
+        <% (objednavka.radekObjednavky).forEach(radek => { %>  
       <tr>
         <th scope="row"><%= radek.nazevProduktu %> </th>
         <td><%= radek.CenaProduktu %> Kč</td>
@@ -50,6 +50,6 @@
     </tbody>
   </table>
 
-  <% if (objednavka.ID_stav == 1) { %>
+  <% if (objednavka.Stav.ID_stav == 1) { %>
    <a href="http://localhost:3000/login/admin-sekce/expedovat/<%= objednavka.cislo %>"><button class="btn btn-success">Expedovat</button></a>
   <% } %>

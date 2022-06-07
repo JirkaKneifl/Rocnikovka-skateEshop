@@ -25,7 +25,7 @@ class KatalogService{
     }
 
     async DetailProduktu(ID_produktu) {
-        const detailProduktu = await this.spojeni.query(`SELECT * FROM produkty WHERE ID_produktu = ?`, [ID_produktu])
+        const [ detailProduktu ] = await this.spojeni.query(`SELECT * FROM produkty WHERE ID_produktu = ?`, [ID_produktu])
         return new Produkt(
             detailProduktu.ID_produktu,
             detailProduktu.nazev,
@@ -47,7 +47,6 @@ class KatalogService{
         return listProduktyPodkategorie.map(produkt => new Produkt(
             produkt.ID_produktu,
             produkt.nazev,
-            produkt.ID_produktu,
             produkt.cena,
             produkt.popis,
             produkt.vaha,
@@ -65,7 +64,6 @@ class KatalogService{
         return listVsechProduktu.map(produkt => new Produkt(
             produkt.ID_produktu,
             produkt.nazev,
-            produkt.ID_produktu,
             produkt.cena,
             produkt.popis,
             produkt.vaha,

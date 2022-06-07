@@ -1,12 +1,15 @@
-const spojeni = require("../../helpers/databaseConection")
+const databaseConection = require("../../helpers/databaseConection")
 const VypoctiCelkovouCenu = require("../../../VypoctiCelkovouCenu")
+const Objednavka = require('../entities/Objednavka.entity');
+const Objednavka_Produkt = require('../entities/Objednavka_Produkt.entity')
+const Stav = require('../entities/Stav.entity')
 
 class OrderService {
 
     spojeni;
 
-    constructor(spojeni){
-        this.spojeni = spojeni;
+    constructor(){
+        this.spojeni = databaseConection;
     }
 
     
@@ -47,20 +50,69 @@ class OrderService {
     }
 
     async ListVsechObjednavek(){
-        return this.spojeni.query(`SELECT * FROM objednavky LEFT JOIN stavyobjednavek ON objednavky.ID_stav = stavyobjednavek.ID_stav ORDER BY objednavky.dat_prijeti DESC`)
+        const listVsechObjednavek = await this.spojeni.query(`SELECT * FROM objednavky LEFT JOIN stavyobjednavek ON objednavky.ID_stav = stavyobjednavek.ID_stav ORDER BY objednavky.dat_prijeti DESC`)
+        return listVsechObjednavek.map(objednavka => new Objednavka(
+            objednavka.cislo,
+            objednavka.dat_prijeti,
+            objednavka.dat_expedice,
+            objednavka.zam_prijal,
+            objednavka.zam_zpracoval,
+            objednavka.zam_expedoval,
+            objednavka.jmeno,
+            objednavka.prijmeni,
+            objednavka.telefon,
+            objednavka.email,
+            objednavka.ulice_cp,
+            objednavka.psc,
+            objednavka.mesto,
+            objednavka.Popis,
+            new Stav(
+                objednavka.ID_stav,
+                objednavka.nazev
+                ),
+            objednavka.celkovaCena
+        ))
     }
 
     async Expedovat(cisloObjednavky){
-       return this.spojeni.query(`UPDATE objednavky SET ID_stav = 0 WHERE cislo = ?`, [cisloObjednavky]) 
+        this.spojeni.query(`UPDATE objednavky SET ID_stav = 0 WHERE cislo = ?`, [cisloObjednavky]) 
     }
 
     async DetailObjednavky(cisloObjednavky){
-        const objednavky =  await this.pripojeni.query(`SELECT * FROM objednavky LEFT JOIN stavyobjednavek ON objednavky.ID_stav = stavyobjednavek.ID_stav WHERE objednavky.cislo = ?`, [cisloObjednavky])
+        const objednavky =  await this.spojeni.query(`SELECT * FROM objednavky LEFT JOIN stavyobjednavek ON objednavky.ID_stav = stavyobjednavek.ID_stav WHERE objednavky.cislo = ?`, [cisloObjednavky])
         const objednavka = objednavky[0];
+        console.log(objednavka)
 
-        const radkyObjednavky = await this.pripojeni.query(`SELECT * FROM objednavky_produkty WHERE ID_objednavky = ?`, [cisloObjednavky])
+        const radkyObjednavky = await this.spojeni.query(`SELECT * FROM objednavky_produkty WHERE ID_objednavky = ?`, [cisloObjednavky])
 
-        return [objednavka, radkyObjednavky];
+        return new Objednavka(
+            objednavka.cislo,
+            objednavka.dat_prijeti,
+            objednavka.dat_expedice,
+            objednavka.zam_prijal,
+            objednavka.zam_zpracoval,
+            objednavka.zam_expedoval,
+            objednavka.jmeno,
+            objednavka.prijmeni,
+            objednavka.telefon,
+            objednavka.email,
+            objednavka.ulice_cp,
+            objednavka.psc,
+            objednavka.mesto,
+            objednavka.Popis,
+            new Stav(
+                objednavka.ID_stav,
+                objednavka.nazev
+                ),
+            objednavka.celkovaCena,
+            radkyObjednavky.map(radek => new Objednavka_Produkt(
+                radek.ID_produktu,
+                radek.nazevProduktu,
+                radek.ID_objednavky,
+                radek.CenaProduktu,
+                radek.mnozstviVObjednavce
+            ))
+        )
     }
 }
 
