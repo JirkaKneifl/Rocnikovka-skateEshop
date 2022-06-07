@@ -43,13 +43,39 @@ class KatalogService{
     }
 
     async ListProdukuZPodkategorie(ID_kategorie){
-        const produktyPodkategorie = await this.spojeni.query(`SELECT * FROM produkty WHERE ID_kategorie = ?`, [ID_kategorie])
-        return produktyPodkategorie;
+        const listProduktyPodkategorie = await this.spojeni.query(`SELECT * FROM produkty WHERE ID_kategorie = ?`, [ID_kategorie])
+        return listProduktyPodkategorie.map(produkt => new Produkt(
+            produkt.ID_produktu,
+            produkt.nazev,
+            produkt.ID_produktu,
+            produkt.cena,
+            produkt.popis,
+            produkt.vaha,
+            produkt.sirka,
+            produkt.delka,
+            produkt.ID_kategorie,
+            produkt.ID_vyrobce,
+            produkt.cesta_obrazekProduktu,
+            produkt.dodatecneInfoProduktu
+            ));
     }
 
     async ListVsechProduktu(ID_kategorie){
         const listVsechProduktu = await this.spojeni.query(`SELECT * FROM produkty WHERE ID_kategorie IN (SELECT ID_kategorie FROM kategorie WHERE ID_kat_nadrazene = ?);`, [ID_kategorie])
-        return listVsechProduktu;
+        return listVsechProduktu.map(produkt => new Produkt(
+            produkt.ID_produktu,
+            produkt.nazev,
+            produkt.ID_produktu,
+            produkt.cena,
+            produkt.popis,
+            produkt.vaha,
+            produkt.sirka,
+            produkt.delka,
+            produkt.ID_kategorie,
+            produkt.ID_vyrobce,
+            produkt.cesta_obrazekProduktu,
+            produkt.dodatecneInfoProduktu
+            ));
     }
 }
 
