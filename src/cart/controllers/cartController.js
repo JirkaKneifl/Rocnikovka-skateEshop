@@ -1,28 +1,24 @@
 const express = require("express");
 const router = express.Router();
-var validator = require('validator');
 const VypoctiCelkovouCenu = require('../../../VypoctiCelkovouCenu');
 const CartSentDTO = require('../dto/cart-sent.dto');
+const ProxyKosikSession = require('../../helpers/proxy-cart-session');
+const KatalogService = require('../../katalog/services/katalog.service')
+const katalogService = new KatalogService();
+const PolozkaVKosiku = require('../../cart/entities/cart.entity')
 
 router.get('/', async function(req, res){
+    const dto = CartSentDTO.FromRequest(req);
     const errors = req.session.errors;
     console.log(errors);
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
-    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
+    const categoriesTree = await katalogService.ListKategorii();//ulozeni JSON objektu do categoriesTree
+    const proxyKosikuSession = new ProxyKosikSession(req.session);
     var CelkovaCena = 0;
-
-    if (dataPridejDoKosikuSession) {
-        dataPridejDoKosikuSession.forEach(element => {
-            console.log("element.mnozstvi: ", element.mnozstvi)
-            
-        });
-        CelkovaCena = VypoctiCelkovouCenu(dataPridejDoKosikuSession);
+    if (proxyKosikuSession.session) {
+        CelkovaCena = VypoctiCelkovouCenu(proxyKosikuSession.session);
     }
-        
     
-    
-    console.log("req.session.cookie.maxAge: " + req.session.cookie.maxAge)
-    res.render('indexCart', { categoriesTree, dataPridejDoKosikuSession , CelkovaCena , errors});
+    res.render('indexCart', { categoriesTree, dataPridejDoKosikuSession: proxyKosikuSession.session , CelkovaCena , errors});
     req.session.resetMaxAge()
     await req.session.save();
 });
@@ -32,16 +28,23 @@ router.get('/', async function(req, res){
 
 router.post('/', async function(req, res){
     const dto = CartSentDTO.FromRequest(req);
+    const proxyKosikuSession = new ProxyKosikSession(req.session);
+    const detailProduktu = await katalogService.DetailProduktu(req.body.IDproduktu);
 
-    if(!req.session.dataPridejDoKosiku || req.session.dataPridejDoKosiku.length === undefined ){
+    /*if(!req.session.dataPridejDoKosiku || req.session.dataPridejDoKosiku.length === undefined ){
         req.session.dataPridejDoKosiku = [];
         
-    }
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree
-    const ID_produktu = req.body.IDproduktu;
-    const CenaJednePolozky = await ModelProduct.SelectCenaJednohoProduktu(ID_produktu);
+    }*/
+    
+   proxyKosikuSession.add(new PolozkaVKosiku(
+       dto.nazev,
+       dto.mnozstvi,
+       dto.ID_produktu,
+       dto.obrazekProduktu,
+       detailProduktu.cena
+   ))
 
-    const dataPridejDoKosikuNovouPolozku = 
+   /* const dataPridejDoKosikuNovouPolozku = 
         {
             nazev: req.body.nazev,
             mnozstvi: req.body.mnozstvi,
@@ -50,22 +53,23 @@ router.post('/', async function(req, res){
             CenaJednePolozky: CenaJednePolozky
         }
     req.session.dataPridejDoKosiku = [...req.session.dataPridejDoKosiku , dataPridejDoKosikuNovouPolozku] ; //vytvorim nove pole do ktereho zkopiruju stare a pridam na konec novou polozku
-    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
+    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;*/
 
     
 
     
     res.redirect('/kosik');
-    console.log("dataPridejDoKosikuSession: ", dataPridejDoKosikuSession)
     req.session.resetMaxAge();
     await req.session.save();
 });
 
 
 router.get('/delete/:ID_produktu', async function(req, res){
-    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.filter(polozka => {
+    const proxyKosikuSession = new ProxyKosikSession(req.session);
+    proxyKosikuSession.remove(req.params.ID_produktu);
+    /*req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.filter(polozka => {
         return polozka.IDproduktu != req.params.ID_produktu;
-    })
+    })*/
     
     res.redirect('/kosik')
     req.session.resetMaxAge();
@@ -74,17 +78,9 @@ router.get('/delete/:ID_produktu', async function(req, res){
 
 router.post('/uprava-mnozstvi/:ID_produktu', function(req, res) {
     const dto = CartSentDTO.FromRequest(req);
-
-    req.session.dataPridejDoKosiku = req.session.dataPridejDoKosiku.map(polozka => {
-        if (polozka.IDproduktu == req.params.ID_produktu) {
-            return {
-                ...polozka, 
-                mnozstvi: req.body.noveMnozstvi //tady menim nozstvy dane polozky a potom returnuju polozku s tímto zmenenym mnozstvim
-            };
-        }else {
-            return polozka; //polozka ktera se nemneni
-        }
-    })
+    const proxyKosikuSession = new ProxyKosikSession(req.session);
+    proxyKosikuSession.update(req.params.ID_produktu, req.noveMnozstvi)
+    
     res.status(201);
     res.send();
 });

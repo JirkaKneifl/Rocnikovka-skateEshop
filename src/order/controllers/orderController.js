@@ -1,24 +1,21 @@
 const express = require("express");
 const router = express.Router();
-const ModelCategory = require('../../katalog/moduls/ModelCategory');
 const VypoctiCelkovouCenu = require('../../../VypoctiCelkovouCenu');
-const fs = require('fs');
-const ejs = require('ejs');
-const nodemailer = require("nodemailer");
-const session = require("express-session");
 const OrderSentDTO = require("../dto/order-sent.dto")
 const OrderService = require("../services/order.service")
-
-let transporter = nodemailer.createTransport({
-    host: "localhost",//adresa serveruz v dockeru
-    port: 25,//port dockeru
-    secure: false, // true for 465, false for other ports
-  });
-
+const orderService = new OrderService();
+const OrderAcceptedMail = require("../../mail/entities/OrderAcceptedMail.entity")
+const MailSenderService = require('../../mail/mail-sender.service');
+const mailSenderService = new MailSenderService();
+const KatalogService = require('../../katalog/services/katalog.service')
+const katalogService = new KatalogService();
+const ProxyKosikSession = require('../../helpers/proxy-cart-session')
 
 
 router.post('/', async function(req, res){
+    const categoriesTree = await katalogService.ListKategorii();
     const dto = OrderSentDTO.FromRequest(req);
+    const proxyKosikuSession = new ProxyKosikSession(req.session);
     const errors = dto.isValid();
     
     
@@ -38,34 +35,31 @@ router.post('/', async function(req, res){
         return
     }
 
-    const categoriesTree = await ModelCategory.SelectAllCategories();
-    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;
-    await req.session.save();
-    
-   const Objednavka = new OrderService.VytvorObjednavku(dto, dataPridejDoKosikuSession);
+   orderService.VytvorObjednavku(dto, proxyKosikuSession)
 
-    const HTMLMailData = await ejs.renderFile(__dirname + '/../views/mailPrijmutiObjednavky.ejs', { 
-        dataPridejDoKosikuSession: dataPridejDoKosikuSession,
-        jmeno: dto.jmeno,
-        prijmeni: dto.prijmeni,
-        telefon: dto.telefon,
-        email: dto.email, 
-        uliceČP: dto.uliceČP,
-        psč: dto.psč, 
-        mesto: dto.mesto, 
-        poznamkaKObjednavce: dto.poznamkaKObjednavce, 
-        celkovaCenaObjednavky: celkovaCenaObjednavky
-    })
+    const orderAcceptedMail = new OrderAcceptedMail(
+        '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>',
+        dto.email,
+        "Ore Mauntains Downhill Shop - Přijali jsme objednávku",
+        ""
+    );
+    orderAcceptedMail.render(
+        dto.jmeno, 
+        dto.prijmeni, 
+        dto.telefon, 
+        dto.email, 
+        dto.uliceČP,
+        dto.psc,
+        dto.mesto,
+        dto.poznamkaKObjednavce,
+        VypoctiCelkovouCenu(proxyKosikuSession.session), 
+        proxyKosikuSession.session
+        )
 
-    let info = await transporter.sendMail({
-        from: '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>', // sender address
-        to: req.body.email, // list of receivers
-        subject: "Ore Mauntains Downhill Shop - Přijali jsme objednávku", // Subject line
-        text: "", // plain text body
-        html: HTMLMailData
-      });
+        mailSenderService.send(orderAcceptedMail);
 
-    res.render('succesOrder', { categoriesTree , dataPridejDoKosikuSession})
+    res.render('succesOrder', { categoriesTree , dataPridejDoKosikuSession: proxyKosikuSession.session})
+    await dto.session.save();
 });
 
 module.exports = router;
