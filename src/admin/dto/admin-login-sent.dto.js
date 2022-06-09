@@ -1,20 +1,19 @@
-class AdminLoginSentDTO{
+class AdminLoginSentDTO {
+  email;
 
-    email;
-    heslo;
+  heslo;
 
-    constructor(email,heslo){
-        this.email = email;
-        this.heslo = heslo;
-    }
+  constructor(email, heslo) {
+    this.email = email;
+    this.heslo = heslo;
+  }
 
-    static FromRequest(req){
-        return new AdminLoginSentDTO(
-            req.body.email,
-            req.body.heslo
-        )
-    }
-    
+  static FromRequest(req) {
+    return new AdminLoginSentDTO(
+      req.body.email,
+      req.body.heslo,
+    );
+  }
 }
 
-module.exports = AdminLoginSentDTO
+module.exports = AdminLoginSentDTO;

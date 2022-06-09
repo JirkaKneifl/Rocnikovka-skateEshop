@@ -1,24 +1,23 @@
 class ProxyZamestnanecSession {
-    session;
- 
-    constructor(session) {
-        this.session = session.zamestnanec;
+  session;
+
+  constructor(session) {
+    this.session = session.zamestnanec;
+  }
+
+  add(zamestnanec) {
+    this.session = zamestnanec;
+  }
+
+  isLogged() {
+    if (this.session) {
+      return true;
     }
- 
-    add(zamestnanec) {
-        this.session = zamestnanec;
-    }
- 
-    isLogged() {
-        if (this.session){
-            return true;
-        }else{
-            return false;
-        }
-    }
- 
-    remove() {
-        this.session = null;
-    }
+    return false;
+  }
+
+  remove() {
+    this.session = null;
+  }
 }
 module.exports = ProxyZamestnanecSession;

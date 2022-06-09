@@ -1,10 +1,11 @@
-const express = require("express");
+const express = require('express');
+const KatalogService = require('../../katalog/services/katalog.service');
+const katalogService = new KatalogService();
 const router = express.Router();
-const ModelCategory = require('../../katalog/moduls/ModelCategory');
 
-router.get('/', async function (req, res){
-    const categoriesTree = await ModelCategory.SelectAllCategories();//ulozeni JSON objektu do categoriesTree 
-    res.render('indexKontakt', {categoriesTree})
-})
+router.get('/', async (req, res) => {
+  const categoriesTree = await katalogService.ListKategorii();// ulozeni JSON objektu do categoriesTree
+  res.render('indexKontakt', { categoriesTree });
+});
 
 module.exports = router;

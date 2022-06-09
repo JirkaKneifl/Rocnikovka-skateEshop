@@ -1,32 +1,36 @@
 const ejs = require('ejs');
 
-class ObjednavkaPrijata{
+class OrderAcceptedMail {
+  from;
 
-    from;
-    to;
-    subject; 
-    text;
-    
-    constructor(from,to,subject,text){
-        this.from = from;
-        this.to = to;
-        this.subject = subject;
-        this.text = text;
-    }
+  to;
 
-    async render(jmeno, prijmeni, telefon, email, uliceČP,psc,mesto,poznamkaKObjednavce,celkovaCenaObjednavky, proxyKosikuSession){
-        this.html = await ejs.renderFile(__dirname + '/../views/mailPrijmutiObjednavky.ejs', { 
-            jmeno,
-            prijmeni,
-            telefon,
-            email, 
-            uliceČP,
-            psc,
-            mesto, 
-            poznamkaKObjednavce, 
-            celkovaCenaObjednavky,
-            proxyKosikuSession
-        })
-    }
+  subject;
+
+  text;
+
+  html;
+
+  constructor(from, to, subject, text) {
+    this.from = from;
+    this.to = to;
+    this.subject = subject;
+    this.text = text;
+  }
+
+  async render(jmeno, prijmeni, telefon, email, ulice, psc, mesto, poznamkaKObjednavce, celkovaCenaObjednavky, dataPridejDoKosikuSession) {
+    this.html = await ejs.renderFile(`${__dirname}/../../order/views/mailPrijmutiObjednavky.ejs`, {
+      jmeno,
+      prijmeni,
+      telefon,
+      email,
+      ulice,
+      psc,
+      mesto,
+      poznamkaKObjednavce,
+      celkovaCenaObjednavky,
+      dataPridejDoKosikuSession,
+    });
+  }
 }
-module.exports = ObjednavkaPrijata;
+module.exports = OrderAcceptedMail;

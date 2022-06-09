@@ -1,10 +1,11 @@
-class Stav{
-    ID_stav;
-    nazev;
+class Stav {
+  ID_stav;
 
-    constructor(ID_stav,nazev){
-        this.ID_stav = ID_stav;
-        this.nazev = nazev;
-    }
+  nazev;
+
+  constructor(ID_stav, nazev) {
+    this.ID_stav = ID_stav;
+    this.nazev = nazev;
+  }
 }
 module.exports = Stav;
