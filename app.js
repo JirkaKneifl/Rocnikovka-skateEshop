@@ -21,7 +21,7 @@ const kontaktPageRout = require('./src/kontakt/controllers/kontaktController')
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    resave: false,
+    resave: true,
     saveUninitialized: false,
     cookie: { 
         maxAge:  5 * 60 * 1000, //cas po ktery funguje je 

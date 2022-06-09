@@ -23,7 +23,7 @@
                 <label class="p-2"><%= produkt.nazev %></label><!--Nazev-->
             </th>
                 <td>
-                    <input type="number" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.IDproduktu %> " value="<%= produkt.mnozstvi %>">
+                    <input type="number" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.ID_produktu %> " value="<%= produkt.mnozstvi %>">
                 </td><!--Mnozstvi-->
                 
                 <td>
@@ -33,7 +33,7 @@
                 
                 <td>
                         <div class="submit-block"> 
-                            <a href="/kosik/delete/<%= produkt.IDproduktu %> " class="btn btn-danger">Odebrat</a>
+                            <a href="/kosik/delete/<%= produkt.ID_produktu %> " class="btn btn-danger">Odebrat</a>
                         </div>
                 </td>
           </tr>          
@@ -178,10 +178,10 @@
     Array.from(document.getElementsByClassName('input-mnozstvi')).forEach(mnozstviInput => {
         
         var id = mnozstviInput.id.replace('mnozstvi-', '')
-        console.log(mnozstviInput)
+        console.log("mnozstviInput: ",mnozstviInput)
         mnozstviInput.addEventListener('change', function (event){
             var noveMnozstvi = parseInt(event.target.value);
-            console.log(id, noveMnozstvi); 
+            console.log("id: ",id,"noveMnozstvi: ", noveMnozstvi); 
 
             fetch('http://localhost:3000/kosik/uprava-mnozstvi/' + id, {
                 method: "POST",
@@ -191,7 +191,7 @@
                 body: JSON.stringify({noveMnozstvi})
             })
             .then(function(myJson) {
-                console.log(myJson);
+                console.log("myJson: ",myJson);
             })
             .catch(function(err){
                 alert("nepodarilo se zmenit mnozstvi");
