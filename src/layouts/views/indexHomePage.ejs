@@ -1,35 +1,51 @@
 <%- include('../partials/nav-bar.ejs'); %>
 <div class="row p-2">
     <div class="col-8 p-2">
-    <a href="http://localhost:3000/kategorie/1">
-    <div class="card text-dark">
-        <img class="card-img" src="<% process.env.APP_URL %>/static/images/LongboardDesky.png" alt="Card image">
-        <div class="card-img-overlay">
-          <h5 class="card-title text-center">Desky</h5>
-        </div>
-    </div>
-    </a>
-    </div>
-    <div class="col-4">
-      <div class="row pt-2">
-         <a href="http://localhost:3000/kategorie/4">
-         <div class="card text-dark">
-            <img class="card-img" src="<% process.env.APP_URL %>/static/images/Kolecka.png" alt="Card image" >
-             <div class="card-img-overlay">
-                <h5 class="card-title text-center">Kolečka</h5>
+      <div class="bg-image ripple" data-mdb-ripple-color="light">
+         <img src="<% process.env.APP_URL %>/static/images/LongboardDesky.png" class="w-100" />
+         <a href="http://localhost:3000/kategorie/1">
+           <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+             <div class="d-flex justify-content-center align-items-center h-100">
+               <p class="text-white mb-0">Desky</p>
              </div>
-         </div>
+           </div>
+           <div class="hover-overlay">
+             <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+           </div>
          </a>
        </div>
-      <div class="row pt-3">
-           <a href="http://localhost:3000/kategorie/7">
-           <div class="card text-dark">
-              <img class="card-img" src="<% process.env.APP_URL %>/static/images/Trucky.png" alt="Card image">
-              <div class="card-img-overlay">
-               <h5 class="card-title text-center">Trucky</h5>
+    </div>
+    <!--  -->
+    <div class="col-4">
+      <div class="row pt-2">
+         <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img src="<% process.env.APP_URL %>/static/images/Kolecka.png" class="w-100" />
+            <a href="http://localhost:3000/kategorie/4">
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">Kolečka</p>
+                </div>
               </div>
-           </div>
-           </a>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+              </div>
+            </a>
+          </div>
+       </div>
+      <div class="row pt-3">
+         <div class="bg-image ripple" data-mdb-ripple-color="light">
+            <img src="<% process.env.APP_URL %>/static/images/Trucky.png" class="w-100" />
+            <a href="http://localhost:3000/kategorie/7">
+              <div class="mask" style="background-color: rgba(0, 0, 0, 0.4)">
+                <div class="d-flex justify-content-center align-items-center h-100">
+                  <p class="text-white mb-0">Kolečka</p>
+                </div>
+              </div>
+              <div class="hover-overlay">
+                <div class="mask" style="background-color: rgba(251, 251, 251, 0.2)"></div>
+              </div>
+            </a>
+          </div>
        </div>
        </div>
     </div>
