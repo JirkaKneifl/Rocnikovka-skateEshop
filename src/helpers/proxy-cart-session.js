@@ -2,7 +2,7 @@ class ProxyKosikSession {
     session;
  
     constructor(session) {
-        if (!session.cart || session.cart === undefined) {
+        if (!session.cart) {
             session.cart = [];
         }
  

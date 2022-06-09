@@ -29,12 +29,8 @@ router.get('/', async function(req, res){
 router.post('/', async function(req, res){
     const dto = CartSentDTO.FromRequest(req);
     const proxyKosikuSession = new ProxyKosikSession(req.session);
-    const detailProduktu = await katalogService.DetailProduktu(req.body.IDproduktu);
+    const detailProduktu = await katalogService.DetailProduktu(dto.ID_produktu);
 
-    /*if(!req.session.dataPridejDoKosiku || req.session.dataPridejDoKosiku.length === undefined ){
-        req.session.dataPridejDoKosiku = [];
-        
-    }*/
     
    proxyKosikuSession.add(new PolozkaVKosiku(
        dto.nazev,
@@ -44,20 +40,7 @@ router.post('/', async function(req, res){
        detailProduktu.cena
    ))
 
-   /* const dataPridejDoKosikuNovouPolozku = 
-        {
-            nazev: req.body.nazev,
-            mnozstvi: req.body.mnozstvi,
-            IDproduktu: ID_produktu,
-            obrazekProduktu: req.body.obrazekProduktu,
-            CenaJednePolozky: CenaJednePolozky
-        }
-    req.session.dataPridejDoKosiku = [...req.session.dataPridejDoKosiku , dataPridejDoKosikuNovouPolozku] ; //vytvorim nove pole do ktereho zkopiruju stare a pridam na konec novou polozku
-    const dataPridejDoKosikuSession = req.session.dataPridejDoKosiku;*/
 
-    
-
-    
     res.redirect('/kosik');
     req.session.resetMaxAge();
     await req.session.save();
@@ -77,7 +60,6 @@ router.get('/delete/:ID_produktu', async function(req, res){
 });
 
 router.post('/uprava-mnozstvi/:ID_produktu', function(req, res) {
-    const dto = CartSentDTO.FromRequest(req);
     const proxyKosikuSession = new ProxyKosikSession(req.session);
     proxyKosikuSession.update(req.params.ID_produktu, req.noveMnozstvi)
     
