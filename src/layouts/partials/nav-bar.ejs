@@ -1,0 +1,55 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="<% process.env.APP_URL %>/">
+      <img src="<% process.env.APP_URL %>/static/images/OreMauntainsDownhillShop.png" alt="Logo shopu" class="img-fluid" width="400px" height="300px">
+      </a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" >
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <!-- Shop dropdown -->
+        <li class="nav-item dropdown">
+          <a class="btn btn-outline-light me-2 dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+            Obchod
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <% categoriesTree.forEach(category => { %>
+            <div style="display: flex;">
+              <li>
+                  <a class="dropdown-item" href="<% process.env.APP_URL %>/kategorie/<%= category.ID_kategorie %>"><%= category.nazev %></a>
+                  <ul style="display: table;">
+                      <% (category.podkategorie ).forEach(podkategorie => { %>
+                      <li style="list-style: none;"><a class="dropdown-item" href="<% process.env.APP_URL %>/kategorie/<%= category.ID_kategorie %>/<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %> </a></li>
+                      <% }) %> 
+                  </ul>
+              </li>
+            </div>
+            <% }) %>  
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="btn btn-outline-light me-2" aria-current="page" href="">Video</a>
+        </li>
+        <li class="nav-item">
+          <a class="btn btn-outline-light me-2" aria-current="page" href="<% process.env.APP_URL %>/kontakt">Kontakt</a>
+        </li>
+      </ul>
+      <a href="<% process.env.APP_URL %>/login" class="btn btn-outline-warning me-2">Přihlášení</a>
+        <a href="<% process.env.APP_URL %>/kosik" class="btn btn-outline-warning me-2">
+          <img src="<% process.env.APP_URL %>/static/images/shopping-cart.png" style="height: auto; width: 20px;">
+        </a>
+    </div>
+  </div>
+</nav>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>

@@ -1,0 +1,40 @@
+<%- include('../partials/nav-bar.ejs'); %>
+<div class="row p-2">
+    <div class="col-8 p-2">
+      <a href="http://localhost:3000/kategorie/1">
+        <div class="my-img-group">
+          <div class="overlay"></div>
+           <img src="<% process.env.APP_URL %>/static/images/LongboardDesky.png" class="w-100" />
+             <div class="my-content">
+               <p class="text-white mb-0">Desky</p>
+             </div>
+        </div>
+      </a>
+    </div>
+    <!--  -->
+    <div class="col-4">
+      <div class="row pt-2 ">
+        <a href="http://localhost:3000/kategorie/4">
+          <div class="my-img-group">
+            <div class="overlay"></div>
+             <img src="<% process.env.APP_URL %>/static/images/Kolecka.png" class="w-100" />
+               <div class="my-content">
+                 <p class="text-white mb-0">Kolečka</p>
+               </div>
+          </div>
+        </a>
+      </div>
+      <div class="row pt-4">
+        <a href="http://localhost:3000/kategorie/7">
+          <div class="my-img-group">
+            <div class="overlay"></div>
+             <img src="<% process.env.APP_URL %>/static/images/Trucky.png" class="w-100" />
+               <div class="my-content">
+                 <p class="text-white mb-0">Trucky</p>
+               </div>
+          </div>
+        </a>
+    </div>
+</div>
+</div>
+<%- include('../partials/footer.ejs'); %>

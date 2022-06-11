@@ -1,0 +1,36 @@
+<!-- navbar -->
+<%- include('../partials/nav-bar.ejs'); %>
+
+<!-- karta produktu -->
+<ul class="list-group list-group-horizontal d-flex flex-wrap ">
+<% Produkty.forEach(produkt => { %>
+    <a href="/kategorie/produkty/<%= produkt.ID_produktu %>" class="text-decoration-none text-dark">
+    <li  style="list-style: none; " class=" mx-1 my-1 p-2">
+        <div class="card px-1 py-1" style="width: 18rem; ">
+            <img src="/<%= produkt.cesta_obrazekProduktu %>/01.jpg" class="card-img-top" alt="obrázek: <%= produkt.nazev %>">
+            <div class="card-body">
+            <h5 class="card-title"><%= produkt.nazev %></h5>
+            <h6 class="card-price"><%= produkt.cena %> Kč</h6>
+            <% if (polozkyVKosiku?.some(polozka => polozka.ID_produktu == produkt.ID_produktu)) { // otaznik mi dela to ze jestli polozkyVKosiku jsou undefine tak se provede else %>
+                <button class="btn btn-success" disabled>Produkt už je v košíku</button>
+                <% }else{ %> 
+            <form action="/kosik" method="post">
+                <input type="hidden" name="nazev" value="<%= produkt.nazev %> ">
+                <input type="hidden" name="mnozstvi" value="1">
+                <input type="hidden" name="ID_produktu" value="<%= produkt.ID_produktu %>">
+                <input type="hidden" name="obrazekProduktu" value="<%= produkt.cesta_obrazekProduktu %>/01.jpg">
+                <div class="submit-block"> 
+                    <button type="submit" class="btn btn-success">Vložit do košíku</button>
+                </div>
+            </form>
+              <% } %>
+              
+            </div>
+        </div>
+    </li>
+    </a>
+<% }) %> 
+</ul>
+
+<!-- footer -->
+<%- include('../partials/footer.ejs'); %>

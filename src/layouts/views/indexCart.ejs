@@ -1,0 +1,214 @@
+<%- include('../partials/nav-bar.ejs'); %>
+<script>
+    var aktualniMnozstvi = document.getElementsByClassName('')
+</script>
+<form action="/objednavka-odeslana" method="POST">
+<% if (dataPridejDoKosikuSession && dataPridejDoKosikuSession.length) { %>
+
+  <div class="border p-2 mt-2 mb-2">
+    <h1 class="d-flex justify-content-center p-2">Souhrn produktů</h1>
+    <table class="table table-borderless p-2">
+        <thead>
+          <tr>
+            <th scope="col">Produkt</th>
+            <th scope="col">Mnozstvi</th>
+            <th scope="col">Cena</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% dataPridejDoKosikuSession.forEach(produkt => { %>
+          <tr>
+            <th scope="row">
+                <img src="<%= produkt.obrazekProduktu %>" style="width: 70px; height: 70px;">
+                <label class="p-2"><%= produkt.nazev %></label><!--Nazev-->
+            </th>
+                <td>
+                    <input type="number" min="1" class="form-control p-2 input-mnozstvi" name="mnozstviProduktu" id="mnozstvi-<%= produkt.ID_produktu %> " value="<%= produkt.mnozstvi %>">
+                </td><!--Mnozstvi-->
+                
+                <td>
+                    <label class="p-2"><%= produkt.CenaJednePolozky %> Kč</label>
+                    <input type="hidden" name="cenaProduktu" value="<%= produkt.CenaJednePolozky %>">
+                </td><!--Cena-->
+                
+                <td>
+                        <div class="submit-block"> 
+                            <a href="/kosik/delete/<%= produkt.ID_produktu %> " class="btn btn-danger">Odebrat</a>
+                        </div>
+                </td>
+          </tr>          
+          <% }) %>
+          
+        </tbody>
+      </table>
+      <div class="row">
+          <div class="col">
+            <h2 class="d-flex justify-content-center">Celkova cena: <%= CelkovaCena %> Kč</h2>
+            <a href="" class="btn btn-warning d-flex justify-content-center">Obnov košík</a>
+          </div>
+      </div>
+  </div>
+
+<!-- Udaje a doprava -->
+<div class="row border p-2 mt-2 mb-2">
+    <!-- Udaje -->
+    <div class="col-md-8">
+        <h1 class="d-flex justify-content-center">Tvoje udaje</h1>
+        
+            <div class="border p-2">
+            <div class="row p-2">
+                <div class="col-md-6">
+                    <h3>Kontaktní údaje</h3>
+                    <label class="label p-1">Jméno</label>
+                    <input type="text" class="form-control p-1" name="jmeno" value="<%= errors && errors.jmeno?.hodnota? errors.jmeno.hodnota: "" %>" required>
+                    <% if (errors && errors.jmeno?.error) { %>
+                        <div class="text-danger" role="alert">
+                            <%= errors.jmeno.error %> 
+                        </div>
+                    <% } %>
+                    <label class="label p-1">Příjmení</label>
+                    <input type="text" class="form-control p-1" name="prijmeni" value="<%= errors && errors.prijmeni?.hodnota? errors.prijmeni.hodnota: "" %>" required>
+                    <% if (errors && errors.prijmeni?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.prijmeni?.error %> 
+                        </div>
+                    <% } %>
+                    <label class="label p-1">Telefon</label>
+                    <input type="tel" class="form-control p-1" name="telefon" value="<%= errors && errors.telefon?.hodnota? errors.telefon.hodnota: "" %>" required>
+                    <% if (errors && errors.telefon?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.telefon.error %> 
+                        </div>
+                    <% } %>
+                    <label class="label p-1">Email</label>
+                    <input type="email" class="form-control p-1" name="email" value="<%= errors && errors.email?.hodnota? errors.email.hodnota: "" %>" required>
+                    <% if (errors && errors.email?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.email.error %> 
+                        </div>
+                    <% } %>
+                </div>
+                <div class="col-md-6">
+                    <h3>Fakturační údaje</h3>
+                    <label class="label p-1">Ulice a č.p.</label>
+                    <input type="text" class="form-control p-1" name="ulice" value="<%= errors && errors.ulice?.hodnota? errors.ulice.hodnota: "" %>" required>
+                    <% if (errors && errors.ulice?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.ulice.error %> 
+                        </div>
+                    <% } %>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label class="label p-1">PSČ</label>
+                            <input type="text" class="form-control p-1" name="psc" value="<%= errors && errors.psc?.hodnota? errors.psc.hodnota: "" %>" required>
+                            <% if (errors && errors.psc?.error) { %>
+                                <div class="text-danger">
+                                    <%= errors.psc.error %> 
+                                </div>
+                            <% } %>
+                        </div>
+                        <div class="col-md-8">
+                            <label class="label p-1">Město</label>
+                            <input type="text" class="form-control p-1" name="mesto" value="<%= errors && errors.mesto?.hodnota? errors.mesto.hodnota: "" %>" required>
+                            <% if (errors && errors.mesto?.error) { %>
+                                <div class="text-danger">
+                                    <%= errors.mesto.error %> 
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3"></div>
+                <div class="row p-2">
+                    <h3 class="p-2">Poznámka k objednávce</h3>
+                    <textarea class="form-control p-2" rows="5" name="poznamkaKObjednavce"></textarea>
+                </div>
+            </div>
+            
+                <div class="form-check p-3">
+                    <input class="form-check-input" type="checkbox" id="gridCheck" name="souhlasObchodnichPodminek" required>
+                    <label class="form-check-label" for="gridCheck" >
+                        Souhlasím s Obchodními podmínkami, beru na vědomí Zásady zpracování osobních údajů a zavazuji se k platbě. 
+                    </label>
+                    <% if (errors && errors.souhlasObchodnichPodminek?.error) { %>
+                        <div class="text-danger">
+                            <%= errors.souhlasObchodnichPodminek.error %> 
+                        </div>
+                    <% } %>
+                  </div>
+        <button type="submit" class="btn btn-success">Odeslat objednávku</button>
+    </div>
+    
+    <!-- Doprava -->
+    <div class="col-md-4">
+        <h1 class="d-flex justify-content-center">Doprava</h1>
+        <div class="row p-2 border ">
+            <li style="list-style-type: none;">
+                <div class="form-check p-3">
+                    <input class="form-check-input" type="radio" id="osobniPrevzeti">
+                    <label class="form-check-label" for="osobniPrevzeti">
+                        Osobní vyzvednutí v Teplicích na prodejně 
+                    </label>
+                  </div>
+            </li>
+            <li style="list-style-type: none;">
+                <div class="form-check p-3">
+                    <input class="form-check-input" type="radio" id="poslaniZasilkovnou">
+                    <label class="form-check-label" for="poslaniZasilkovnou">
+                        Zásilkovna doručení na pobočku
+                    </label>
+                  </div>
+            </li>
+            <li style="list-style-type: none;">
+                <div class="form-check p-3">
+                    <input class="form-check-input" type="radio" id="PPLdoruceni">
+                    <label class="form-check-label" for="PPLdoruceni">
+                        PPL doručení na adresu
+                    </label>
+                  </div> 
+            </li>
+        </div>
+        
+    </div>
+</div>
+</form>
+
+<script>
+    Array.from(document.getElementsByClassName('input-mnozstvi')).forEach(mnozstviInput => {
+        
+        var id = mnozstviInput.id.replace('mnozstvi-', '')
+        console.log("mnozstviInput: ",mnozstviInput)
+        mnozstviInput.addEventListener('change', function (event){
+            var noveMnozstvi = parseInt(event.target.value);
+            console.log("id: ",id,"noveMnozstvi: ", noveMnozstvi); 
+
+            fetch('http://localhost:3000/kosik/uprava-mnozstvi/' + id, {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify({noveMnozstvi})
+            })
+            .then(function(myJson) {
+                console.log("myJson: ",myJson);
+            })
+            .catch(function(err){
+                alert("nepodarilo se zmenit mnozstvi");
+                window.reload();
+            })
+        })
+    })
+</script>
+<div class="p-3"></div>
+
+<% } else { %>
+    <h2 class="d-flex justify-content-center p-2">Bohužel Váš košík je stále prázdný :(</h2>
+    <div class="d-flex justify-content-center p-2">
+        <img src="<% process.env.APP_URL %>/static/images/empty-cart.png" style="height: auto; width: 300px;">
+    </div>
+        
+    
+    <% } %>
+
+    <%- include('../partials/footer.ejs'); %>
