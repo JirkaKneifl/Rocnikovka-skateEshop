@@ -18,7 +18,7 @@
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <!-- Shop dropdown -->
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
+          <a class="dropdown-toggle btn btn-outline-light me-2" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"> 
             Obchod
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -37,20 +37,13 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<% process.env.APP_URL %>/login/admin-sekce">Admin sekce</a>
+          <a class="btn btn-outline-light me-2" aria-current="page" href="<% process.env.APP_URL %>/login/admin-sekce">Admin sekce objednávek</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="<% process.env.APP_URL %>/kontakt">Kontakt</a>
+          <a class="btn btn-outline-light me-2" aria-current="page" href="<% process.env.APP_URL %>/products-section/produkty">Admin sekce produktů</a>
         </li>
       </ul>
       <a href="<% process.env.APP_URL %>/login" class="btn btn-outline-warning me-2">Zpátky na přihlášení</a>
-        <a href="<% process.env.APP_URL %>/kosik" class="btn btn-outline-warning me-2">
-          <img src="<% process.env.APP_URL %>/static/images/shopping-cart.png" style="height: auto; width: 20px;">
-        </a>
-      <form class="d-flex">
-        <input class="form-control me-2" type="search" placeholder="Hledat" aria-label="Search"/>
-        <button class="btn btn-outline-warning" type="submit">Hledat</button>
-      </form>
     </div>
   </div>
 </nav>
