@@ -45,7 +45,7 @@ class ProductService {
 
   async PridejProdukt(dto){
     await this.spojeni.query(`INSERT INTO produkty VALUES(
-        null, 
+        NULL, 
         ?,
         ?,
         ?,
@@ -55,7 +55,7 @@ class ProductService {
         ?,
         ?,
         ?,
-        ?,
+        ?
     )`, [
         dto.nazev,
         dto.cena,
@@ -63,7 +63,7 @@ class ProductService {
         dto.vaha,
         dto.sirka,
         dto.delka,
-        dto.ID_produktu,
+        dto.ID_kategorie,
         dto.ID_vyrobce,
         dto.cesta_obrazekProduktu,
         dto.dodatecneInfoProduktu,

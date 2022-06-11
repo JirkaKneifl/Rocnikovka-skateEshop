@@ -64,10 +64,76 @@
     </tbody>
   </table> 
 
+  <form class="row p-2 border rounded" action="/products-section/produkty/update/<%= detailProduktu.ID_produktu %>" method="POST">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>   
+          <tr>
+            <th scope="row">Název</th>
+            <th><input type="text" name="nazev"></th>
+          </tr>
+          <tr>
+            <th scope="row">Cena</th>
+            <th><input type="text" name="cena"></th>
+          </tr>
+          <tr>
+            <th scope="row">Popis</th>
+            <th><textarea name="popis"></textarea></th>
+          </tr>
+          <tr>
+            <th scope="row">Váha</th>
+            <th><input type="text" name="vaha"></th>
+          </tr>
+          <tr>
+            <th scope="row">Šířka</th>
+            <th><input type="text" name="sirka"></th>
+          </tr>
+          <tr>
+            <th scope="row">ID Kategorie</th>
+            <th>
+                <select name="ID_kategorie">
+                <% categoriesTree.forEach(category => { %>
+                    <optgroup label="<%= category.nazev %> ">
+                      <% (category.podkategorie).forEach(podkategorie => { %>
+                      <option value="<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %></option>
+                      <% }) %>
+                    </optgroup>
+                <% }) %>
+                  </select>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">ID Výrobce</th>
+            <th>
+                <select name="ID_vyrobce">
+                <% listVyrobcu.forEach(vyrobce => { %>
+                          <option value="<%= vyrobce.ID_vyrobce %>"><%= vyrobce.nazev %></option>
+                <% }) %> 
+            </select>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">Souborová cesta k obrázku</th>
+            <th><input type="text" name="cesta_obrazekProduktu"></th>
+          </tr>
+          <tr>
+            <th scope="row">Dodatečné Info</th>
+            <th><input type="text" name="dodatecneInfoProduktu"></th>
+          </tr>
+        </tbody>
+      </table> 
   <div class="row">
     <div class="col">
-        <a href="" class="btn btn-primary d-flex justify-content-center">Upravit</a>
+        <button type="submit" class="btn btn-primary d-flex justify-content-center">Upravit</button>
     </div>
   </div>
+</form>
+
+<%- include('../partials/footer.ejs'); %>
 
   

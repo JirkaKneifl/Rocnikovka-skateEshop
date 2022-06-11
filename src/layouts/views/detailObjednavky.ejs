@@ -63,3 +63,5 @@
   <% if (objednavka.Stav.ID_stav == 1) { %>
    <a href="http://localhost:3000/login/admin-sekce/expedovat/<%= objednavka.cislo %>"><button class="btn btn-success">Expedovat</button></a>
   <% } %>
+
+  <%- include('../partials/footer.ejs'); %>

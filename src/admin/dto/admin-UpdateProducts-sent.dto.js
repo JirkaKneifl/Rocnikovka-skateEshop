@@ -24,7 +24,7 @@ class AdminUpdateProductsSentDTO{
     }
 
     static FromRequest(req) {
-        return new AdminProductsSentDTO(
+        return new AdminUpdateProductsSentDTO(
           req.body.nazev,
           req.body.cena,
           req.body.popis,

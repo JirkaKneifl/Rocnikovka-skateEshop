@@ -31,11 +31,11 @@ router.get('/produkty/:ID_produktu', async (req, res) => {
 
 
 // pridani produktu
-router.post('/produkty/add/:ID_produktu', async (req, res) => {
+router.post('/produkty/add', async (req, res) => {
     const dto = AdminAddProductsSentDTO.FromRequest(req);
     await productService.PridejProdukt(dto);
 
-    res.redirect('/login/admin-sekce/produkty');
+    res.redirect('/products-section/produkty');
 });
 
 
@@ -44,7 +44,7 @@ router.post('/produkty/update/:ID_produktu', async (req, res) => {
     const dto = AdminUpdateProductsSentDTO.FromRequest(req);
     await productService.UpdateProdukt(req.params.ID_produktu, dto);
 
-    res.redirect('/login/admin-sekce/produkty');
+    res.redirect('/products-section/produkty');
 });
 
 
@@ -52,7 +52,7 @@ router.post('/produkty/update/:ID_produktu', async (req, res) => {
 router.get('/produkty/delete/:ID_produktu', async (req, res) => {
     await productService.RemoveProdukt(req.params.ID_produktu);
 
-    res.redirect('/login/admin-sekce/produkty');
+    res.redirect('/products-section/produkty');
 });
 
 module.exports = router;
