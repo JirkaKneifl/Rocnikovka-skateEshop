@@ -1,6 +1,7 @@
 const ejs = require('ejs');
 
 class OrderExpendedMail {
+  
   from;
 
   to;

@@ -8,8 +8,8 @@ router.get('/produkty/:ID_produktu?', async function (req, res){
     const categoriesTree = await katalogService.ListKategorii();;//ulozeni JSON objektu do categoriesTree
     const { ID_produktu } = req.params;
 
-    const PorduktInfo = await ModelProduktu.SelectDataJednohoProduktu(ID_produktu);
-    res.render('indexProductsInfo', {categoriesTree, PorduktInfo, polozkyVKosiku: req.session.dataPridejDoKosiku})
+    const produkt = await katalogService.DetailProduktu(ID_produktu);
+    res.render('indexProductsInfo', {categoriesTree, produkt, polozkyVKosiku: req.session.cart})
 }) 
 
 //funkce rendrujici produkty do vypisu produktu dle dane URL id
@@ -21,13 +21,13 @@ router.get('/:ID_hlavniKategorie/:ID_podkategorie?', async function (req, res){ 
        const ID_kategorie = parseInt(ID_hlavniKategorie);
 
         const Produkty = await katalogService.ListVsechProduktu(ID_kategorie);
-        res.render('indexProducts', { categoriesTree, Produkty , polozkyVKosiku: req.session.dataPridejDoKosiku})
+        res.render('indexProducts', { categoriesTree, Produkty , polozkyVKosiku: req.session.cart})
         //console.log(Produkty);
     } else {
        const ID_kategorie = parseInt(ID_podkategorie);
 
         const Produkty = await katalogService.ListProdukuZPodkategorie(ID_kategorie);
-        res.render('indexProducts', { categoriesTree, Produkty, polozkyVKosiku: req.session.dataPridejDoKosiku })
+        res.render('indexProducts', { categoriesTree, Produkty, polozkyVKosiku: req.session.cart })
         //console.log(Produkty);
     }
 }) 
