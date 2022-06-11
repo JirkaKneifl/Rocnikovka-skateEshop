@@ -25,8 +25,9 @@ nodemailer.createTransport({
 });
 
 // routa na login
-router.get('/', (req, res) => {
-  res.render('indexLogin');
+router.get('/', async (req, res) => {
+  const categoriesTree = await katalogService.ListKategorii();
+  res.render('indexLogin', { categoriesTree });
 });
 
 router.get('/admin-sekce', async (req, res) => {
