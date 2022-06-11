@@ -1,0 +1,103 @@
+<%- include('../../layouts/partials/nav-bar.ejs'); %>
+<h1>Admin Products</h1>
+<form class="row p-2 border rounded" action="" method="POST">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>   
+          <tr>
+            <th scope="row">Název</th>
+            <th><input type="text" name="nazev"></th>
+          </tr>
+          <tr>
+            <th scope="row">Cena</th>
+            <th><input type="text" name="cena"></th>
+          </tr>
+          <tr>
+            <th scope="row">Popis</th>
+            <th><textarea name="popis"></textarea></th>
+          </tr>
+          <tr>
+            <th scope="row">Váha</th>
+            <th><input type="text" name="vaha"></th>
+          </tr>
+          <tr>
+            <th scope="row">Šířka</th>
+            <th><input type="text" name="sirka"></th>
+          </tr>
+          <tr>
+            <th scope="row">ID Kategorie</th>
+            <th>
+                <select name="cars" id="cars">
+                    <optgroup label="Swedish Cars">
+                      <option value="volvo">Volvo</option>
+                      <option value="saab">Saab</option>
+                    </optgroup>
+                    <optgroup label="German Cars">
+                      <option value="mercedes">Mercedes</option>
+                      <option value="audi">Audi</option>
+                    </optgroup>
+                  </select>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">ID Výrobce</th>
+            <th>
+                <select name="Vyrobci">
+                <% listVyrobcu.forEach(vyrobce => { %>
+                        <optgroup label="<%= vyrobce.ID_vyrobce %>">
+                          <option value="<%= vyrobce.ID_vyrobce %>"><%= vyrobce.nazev %></option>
+                        </optgroup>
+                    
+                <% }) %> 
+            </select>
+            </th>
+          </tr>
+          <tr>
+            <th scope="row">Souborová cesta k obrázku</th>
+            <th><input type="text" name="cesta_obrazekProduktu"></th>
+          </tr>
+          <tr>
+            <th scope="row">Dodatečné Info</th>
+            <th><input type="text" name="dodatecneInfoProduktu"></th>
+          </tr>
+        </tbody>
+      </table> 
+    <div class="row">
+        <div class="col">
+            <a href="" class="btn btn-success d-flex justify-content-center">Přidat Produkt</a>
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Název</th>
+        <th scope="col">Cena</th>
+        <th scope="col">ID kategorie</th>
+        <th scope="col">ID výrobce</th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+        <% listProduktu.forEach(produkt => { %> 
+      <tr>
+        <th scope="row"><%= produkt.ID_produktu %></th>
+        <td><%= produkt.nazev %></td>
+        <td><%= produkt.cena %> Kč</td>
+        <td><%= produkt.ID_kategorie %></td>
+        <td><%= produkt.ID_vyrobce %></td>
+        <td><a href="http://localhost:3000/products-section/produkty/<%= produkt.ID_produktu %>" ><button class="btn btn-primary">Detail</button></a></td>
+        <td><a href="http://localhost:3000/products-section/produkty/delete/<%= produkt.ID_produktu %> " ><button class="btn btn-danger">Odebrat</button></a></td>
+      </tr>
+      <% }) %> 
+    </tbody>
+  </table>
+  

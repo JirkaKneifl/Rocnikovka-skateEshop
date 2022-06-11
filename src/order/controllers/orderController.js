@@ -38,12 +38,12 @@ router.post('/', async (req, res) => {
   orderService.VytvorObjednavku(dto, proxyKosikuSession);
 
   const orderAcceptedMail = new OrderAcceptedMail(
-    '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>',
+    '"Ore Mauntains Downhill Media" <oremountainsdownhill@gmail.com>',
     dto.email,
     'Ore Mauntains Downhill Shop - Přijali jsme objednávku',
     '',
   );
-  orderAcceptedMail.render(
+  await orderAcceptedMail.render(
     dto.jmeno,
     dto.prijmeni,
     dto.telefon,
@@ -57,7 +57,7 @@ router.post('/', async (req, res) => {
   );
   console.log('proxyKosikuSession.req.session.cart: ', proxyKosikuSession.req.session.cart);
 
-  mailSenderService.send(orderAcceptedMail);
+  await mailSenderService.send(orderAcceptedMail);
 
   res.render('succesOrder', { categoriesTree, dataPridejDoKosikuSession: proxyKosikuSession.req.session.cart });
   proxyKosikuSession.reset();

@@ -1,7 +1,6 @@
 const express = require('express');
 
 const router = express.Router();
-const ejs = require('ejs');
 const nodemailer = require('nodemailer');
 const KatalogService = require('../../katalog/services/katalog.service');
 
@@ -19,7 +18,7 @@ const MailSenderService = require('../../mail/mail-sender.service');
 const mailSenderService = new MailSenderService();
 const OrderExpendedMail = require('../../mail/entities/OrderExpendedMail.entity');
 
-const transporter = nodemailer.createTransport({
+nodemailer.createTransport({
   host: 'localhost', // adresa serveruz v dockeru
   port: 25, // port dockeru
   secure: false, // true for 465, false for other ports
@@ -53,7 +52,7 @@ router.post('/admin-sekce', async (req, res) => {
   }
 });
 
-router.get('/admin-sekce/:cisloObjednavky', async (req, res) => {
+router.get('/admin-sekce/:cisloObjednavky?', async (req, res) => {
   const categoriesTree = await katalogService.ListKategorii();
   const objednavka = await orderService.DetailObjednavky(req.params.cisloObjednavky);
 
@@ -65,12 +64,12 @@ router.get('/admin-sekce/expedovat/:cisloObjednavky', async (req, res) => {
   const objednavka = await orderService.DetailObjednavky(req.params.cisloObjednavky);
   console.log('Objednavka: ', objednavka);
   const orderExpendedMail = new OrderExpendedMail(
-    '"Ore Mauntains Downhill Media" <Jirka.kneifl@email.cz>',
+    '"Ore Mauntains Downhill Media" <oremountainsdownhill@gmail.com>',
     objednavka.email,
-    'Ore Mauntains Downhill Shop - Přijali jsme objednávku',
+    'Ore Mauntains Downhill Shop - Objednávka byla odexpedována',
     '',
   );
-  orderExpendedMail.render(
+  await orderExpendedMail.render(
     objednavka.jmeno,
     objednavka.prijmeni,
     objednavka.telefon,
@@ -83,7 +82,7 @@ router.get('/admin-sekce/expedovat/:cisloObjednavky', async (req, res) => {
     objednavka.radekObjednavky,
   );
 
-  mailSenderService.send(orderExpendedMail);
+  await mailSenderService.send(orderExpendedMail);
 
   res.redirect('/login/admin-sekce/');
 });

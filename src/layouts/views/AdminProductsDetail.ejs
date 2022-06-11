@@ -1,0 +1,73 @@
+<%- include('../partials/nav-bar.ejs'); %>
+<div class="row">
+    <div class="col">
+        <h1 class="">Detail produktu:</h1>
+    </div>
+    <div class="col">
+        <div class="d-flex justify-content-end pt-3">
+            <a href="http://localhost:3000/products-section/produkty" class="btn btn-warning">Zpět</a>
+        </div>
+    </div>
+</div>
+
+<table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+        
+             
+      <tr>
+        <th scope="row">ID</th>
+        <td><%= detailProduktu.ID_produktu %></td>
+      </tr>
+      <tr>
+        <th scope="row">Název</th>
+        <td><%= detailProduktu.nazev %></td>
+      </tr>
+      <tr>
+        <th scope="row">Cena</th>
+        <td><%= detailProduktu.cena %></td>
+      </tr>
+      <tr>
+        <th scope="row">Popis</th>
+        <td><%= detailProduktu.popis %></td>
+      </tr>
+      <tr>
+        <th scope="row">Váha</th>
+        <td><%= detailProduktu.vaha %></td>
+      </tr>
+      <tr>
+        <th scope="row">Šířka</th>
+        <td><%= detailProduktu.sirka %></td>
+      </tr>
+      <tr>
+        <th scope="row">ID Kategorie</th>
+        <td><%= detailProduktu.ID_kategorie %></td>
+      </tr>
+      <tr>
+        <th scope="row">ID Výrobce</th>
+        <td><%= detailProduktu.ID_vyrobce %></td>
+      </tr>
+      <tr>
+        <th scope="row">Souborová cesta k obrázku</th>
+        <td><%= detailProduktu.cesta_obrazekProduktu %></td>
+      </tr>
+      <tr>
+        <th scope="row">Dodatečné Info</th>
+        <td><%= detailProduktu.dodatecneInfoProduktu %></td>
+      </tr>
+      
+    </tbody>
+  </table> 
+
+  <div class="row">
+    <div class="col">
+        <a href="" class="btn btn-primary d-flex justify-content-center">Upravit</a>
+    </div>
+  </div>
+
+  

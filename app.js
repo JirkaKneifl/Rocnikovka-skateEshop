@@ -12,6 +12,7 @@ const productPageRout = require('./src/katalog/controllers/categoryProducsContro
 const cartPageRout = require('./src/cart/controllers/cartController');
 const orderPageRout = require('./src/order/controllers/orderController');
 const kontaktPageRout = require('./src/kontakt/controllers/kontaktController');
+const adminProductsPageRout = require('./src/admin/controllers/admin.products');
 
 // console.log(process.env)
 
@@ -35,6 +36,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // nastaveni static souborů
 app.use('/static', express.static('static'));
+app.use(express.static('static'))
 
 // nastavení routy
 app.use('/', homePageRout);
@@ -46,6 +48,7 @@ app.use('/kontakt', kontaktPageRout);
 
 app.use('/register', registerRout);
 app.use('/login', loginRout);
+app.use('/products-section', adminProductsPageRout)
 
 const port = process.env.PORT; // jaky mam port
 app.listen(port, () => console.log(`Aplikace běží na portu ${port}`));
