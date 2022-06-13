@@ -12,32 +12,32 @@
       <tbody>   
         <tr>
           <th scope="row">Název</th>
-          <th><input type="text" name="nazev"></th>
+          <th><input class="form-control" type="text" name="nazev"></th>
         </tr>
         <tr>
           <th scope="row">Cena</th>
-          <th><input type="text" name="cena"></th>
+          <th><input class="form-control" type="text" name="cena"></th>
         </tr>
         <tr>
           <th scope="row">Popis</th>
-          <th><textarea name="popis"></textarea></th>
+          <th><textarea class="form-control" name="popis"></textarea></th>
         </tr>
         <tr>
           <th scope="row">Váha</th>
-          <th><input type="text" name="vaha"></th>
+          <th><input class="form-control" type="text" name="vaha"></th>
         </tr>
         <tr>
           <th scope="row">Šířka</th>
-          <th><input type="text" name="sirka"></th>
+          <th><input class="form-control" type="text" name="sirka"></th>
         </tr>
         <tr>
           <th scope="row">ID Kategorie</th>
           <th>
-              <select name="ID_kategorie">
+              <select class="form-control" name="ID_kategorie">
               <% categoriesTree.forEach(category => { %>
-                  <optgroup label="<%= category.nazev %> ">
+                  <optgroup class="form-control" label="<%= category.nazev %> ">
                     <% (category.podkategorie).forEach(podkategorie => { %>
-                    <option value="<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %></option>
+                    <option class="form-control" value="<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %></option>
                     <% }) %>
                   </optgroup>
               <% }) %>
@@ -47,20 +47,20 @@
         <tr>
           <th scope="row">ID Výrobce</th>
           <th>
-              <select name="ID_vyrobce">
+              <select class="form-control" name="ID_vyrobce">
               <% listVyrobcu.forEach(vyrobce => { %>
-                        <option value="<%= vyrobce.ID_vyrobce %>"><%= vyrobce.nazev %></option>
+                        <option class="form-control" value="<%= vyrobce.ID_vyrobce %>"><%= vyrobce.nazev %></option>
               <% }) %> 
           </select>
           </th>
         </tr>
         <tr>
           <th scope="row">Souborová cesta k obrázku</th>
-          <th><input type="text" name="cesta_obrazekProduktu"></th>
+          <th><textarea class="form-control" name="cesta_obrazekProduktu"></textarea></th>
         </tr>
         <tr>
           <th scope="row">Dodatečné Info</th>
-          <th><input type="text" name="dodatecneInfoProduktu"></th>
+          <th><textarea class="form-control" name="dodatecneInfoProduktu"></textarea></th>
         </tr>
       </tbody>
     </table> 

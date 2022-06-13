@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-
+<div class="p-3">
 <table class="table">
     <thead class="thead-dark">
       <tr>
@@ -38,7 +38,7 @@
       </tr>
       <tr>
         <th scope="row">Váha</th>
-        <td><%= detailProduktu.vaha %></td>
+        <td><%= detailProduktu.vaha %> Kg</td>
       </tr>
       <tr>
         <th scope="row">Šířka</th>
@@ -75,32 +75,32 @@
         <tbody>   
           <tr>
             <th scope="row">Název</th>
-            <th><input type="text" name="nazev"></th>
+            <th><input class="form-control" type="text" name="nazev" value="<%= detailProduktu.nazev %>"></th>
           </tr>
           <tr>
             <th scope="row">Cena</th>
-            <th><input type="text" name="cena"></th>
+            <th><input class="form-control" type="text" name="cena" value="<%= detailProduktu.cena %>"></th>
           </tr>
           <tr>
             <th scope="row">Popis</th>
-            <th><textarea name="popis"></textarea></th>
+            <th><textarea class="form-control" name="popis" rows="5" ><%= detailProduktu.popis %></textarea></th>
           </tr>
           <tr>
             <th scope="row">Váha</th>
-            <th><input type="text" name="vaha"></th>
+            <th><input class="form-control" type="text" name="vaha" value="<%= detailProduktu.vaha %>"></th>
           </tr>
           <tr>
             <th scope="row">Šířka</th>
-            <th><input type="text" name="sirka"></th>
+            <th><input class="form-control" type="text" name="sirka" value="<%= detailProduktu.sirka %>"></th>
           </tr>
           <tr>
             <th scope="row">ID Kategorie</th>
             <th>
-                <select name="ID_kategorie">
+                <select class="form-control" name="ID_kategorie">
                 <% categoriesTree.forEach(category => { %>
-                    <optgroup label="<%= category.nazev %> ">
+                    <optgroup class="form-control" label="<%= category.nazev %> ">
                       <% (category.podkategorie).forEach(podkategorie => { %>
-                      <option value="<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %></option>
+                      <option class="form-control" value="<%= podkategorie.ID_kategorie %>"><%= podkategorie.nazev %></option>
                       <% }) %>
                     </optgroup>
                 <% }) %>
@@ -110,20 +110,20 @@
           <tr>
             <th scope="row">ID Výrobce</th>
             <th>
-                <select name="ID_vyrobce">
+                <select class="form-control" name="ID_vyrobce">
                 <% listVyrobcu.forEach(vyrobce => { %>
-                          <option value="<%= vyrobce.ID_vyrobce %>"><%= vyrobce.nazev %></option>
+                          <option class="form-control" value="<%= vyrobce.ID_vyrobce %>"><%= vyrobce.nazev %></option>
                 <% }) %> 
             </select>
             </th>
           </tr>
           <tr>
             <th scope="row">Souborová cesta k obrázku</th>
-            <th><input type="text" name="cesta_obrazekProduktu"></th>
+            <th><textarea class="form-control" name="cesta_obrazekProduktu" ><%= detailProduktu.cesta_obrazekProduktu %></textarea></th>
           </tr>
           <tr>
             <th scope="row">Dodatečné Info</th>
-            <th><input type="text" name="dodatecneInfoProduktu"></th>
+            <th><textarea class="form-control"  name="dodatecneInfoProduktu" ><%= detailProduktu.dodatecneInfoProduktu %></textarea></th>
           </tr>
         </tbody>
       </table> 
@@ -133,7 +133,7 @@
     </div>
   </div>
 </form>
-
+</div>
 <%- include('../partials/footer.ejs'); %>
 
   

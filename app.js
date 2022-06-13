@@ -6,7 +6,6 @@ require('dotenv').config();
 const app = express();
 
 const homePageRout = require('./src/homePage/controllers/homePage');
-const registerRout = require('./src/admin/controllers/register');
 const loginRout = require('./src/admin/controllers/login');
 const productPageRout = require('./src/katalog/controllers/categoryProducsController');
 const cartPageRout = require('./src/cart/controllers/cartController');
@@ -45,8 +44,6 @@ app.use('/kategorie/produkty', productPageRout);
 app.use('/kosik', cartPageRout);
 app.use('/objednavka-odeslana', orderPageRout);
 app.use('/kontakt', kontaktPageRout);
-
-app.use('/register', registerRout);
 app.use('/login', loginRout);
 app.use('/products-section', adminProductsPageRout)
 

@@ -35,7 +35,7 @@ router.post('/', async (req, res) => {
     return;
   }
 
-  orderService.VytvorObjednavku(dto, proxyKosikuSession);
+  await orderService.VytvorObjednavku(dto, proxyKosikuSession);
 
   const orderAcceptedMail = new OrderAcceptedMail(
     '"Ore Mauntains Downhill Media" <oremountainsdownhill@gmail.com>',

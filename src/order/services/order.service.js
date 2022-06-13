@@ -11,13 +11,13 @@ class OrderService {
   }
 
   async VytvorObjednavku(dto, sessionPolozkay) {
-    await this.spojeni.query(`INSERT INTO objednavky VALUES(
-            null, 
+   const Objednavka  = await this.spojeni.query(`INSERT INTO objednavky VALUES(
+            NULL, 
             NOW(),
-            null,
-            null,
-            null,
-            null,
+            NULL,
+            NULL,
+            NULL,
+            NULL,
             ?,?,?,?,?,?,?,?,1,?
         )`, [
       dto.jmeno,
@@ -31,14 +31,15 @@ class OrderService {
       sessionPolozkay.celkovaCena(),
     ]);
 
+console.log(Objednavka)
     await Promise.all(sessionPolozkay.req.session.cart.map((sessionPolozka) => this.spojeni.query(
       'INSERT INTO objednavky_produkty VALUES(?, ?, ?, ?, ?)',
       [
         sessionPolozka.ID_produktu,
-        sessionPolozka.nazveProduktu,
-        sessionPolozka.ID_objednavky,
-        sessionPolozka.CenaProduktu,
-        sessionPolozka.mnozstviVObjednavce,
+        sessionPolozka.nazev,
+        Objednavka.insertId,
+        sessionPolozka.CenaJednePolozky,
+        sessionPolozka.mnozstvi,
       ],
     )));
   }

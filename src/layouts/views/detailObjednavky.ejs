@@ -10,13 +10,13 @@
   </div>
 </div>
 
-
+<div class="p-3">
 <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Cislo</th>
+        <th scope="col">Číslo</th>
         <th scope="col">Datum přijetí</th>
-        <th scope="col">Jmeno zákazníka</th>
+        <th scope="col">Jméno zákazníka</th>
         <th scope="col">Telefon</th>
         <th scope="col">Email</th>
         <th scope="col">Stav objednávky</th>
@@ -32,7 +32,7 @@
         <td><%= objednavka.jmeno %> <%= objednavka.prijmeni %></td>
         <td><%= objednavka.telefon %></td>
         <td><%= objednavka.email %></td>
-        <td><%= objednavka.nazev %></td>
+        <td><%= objednavka.Stav.nazev %></td>
         <td><%= objednavka.celkovaCena %> Kč</td>
       </tr>
       
@@ -44,9 +44,9 @@
   <table class="table">
     <thead class="thead-dark">
       <tr>
-        <th scope="col">Nazev</th>
+        <th scope="col">Název</th>
         <th scope="col">Cena</th>
-        <th scope="col">Mnozstvi</th>
+        <th scope="col">Množství</th>
       </tr>
     </thead>
     <tbody>
@@ -63,5 +63,5 @@
   <% if (objednavka.Stav.ID_stav == 1) { %>
    <a href="http://localhost:3000/login/admin-sekce/expedovat/<%= objednavka.cislo %>"><button class="btn btn-success">Expedovat</button></a>
   <% } %>
-
+</div>
   <%- include('../partials/footer.ejs'); %>
