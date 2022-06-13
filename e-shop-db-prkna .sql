@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Počítač: 127.0.0.1
--- Vytvořeno: Ned 12. čen 2022, 22:05
+-- Vytvořeno: Pon 13. čen 2022, 20:28
 -- Verze serveru: 10.4.11-MariaDB
 -- Verze PHP: 7.4.4
 
@@ -39,12 +39,14 @@ CREATE TABLE `kategorie` (
 
 INSERT INTO `kategorie` (`ID_kategorie`, `nazev`, `ID_kat_nadrazene`) VALUES
 (1, 'Desky', NULL),
-(2, 'LongboardDesky', 1),
-(3, 'SkateboardDesky', 1),
+(2, 'Longboard Desky', 1),
+(3, 'Skateboard Desky', 1),
 (4, 'Kolečka', NULL),
 (5, 'Longboard Kolečka', 4),
 (6, 'Skateboard Kolečka', 4),
-(7, 'Trucky', NULL);
+(7, 'Trucky', NULL),
+(8, 'Longboard Trucky', 7),
+(9, 'Skateboard Trucky', 7);
 
 -- --------------------------------------------------------
 
@@ -143,7 +145,9 @@ INSERT INTO `objednavky` (`cislo`, `dat_prijeti`, `dat_expedice`, `zam_prijal`, 
 (65, '2022-06-12 21:30:31', NULL, NULL, NULL, NULL, 'Jirka', 'sdffffffffffffffffff', 986565121, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', 'sfsdgsg', 1, '0.00'),
 (66, '2022-06-12 21:30:59', NULL, NULL, NULL, NULL, 'Šárka', 'sdgsdfg', 666666666, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', 'dfcghdsh', 1, '21960.00'),
 (67, '2022-06-12 21:31:26', NULL, NULL, NULL, NULL, 'Šárka', 'sdgsdfg', 666666666, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', 'dfcghdsh', 1, '0.00'),
-(68, '2022-06-12 21:32:19', NULL, NULL, NULL, NULL, 'Šárka', 'Kneiflova', 666666666, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', 'afsgsdgasgas', 0, '27450.00');
+(68, '2022-06-12 21:32:19', NULL, NULL, NULL, NULL, 'Šárka', 'Kneiflova', 666666666, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', 'afsgsdgasgas', 0, '27450.00'),
+(69, '2022-06-13 18:48:52', NULL, NULL, NULL, NULL, 'agadgh', 'dshdsh', 666666666, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', '', 0, '3897.00'),
+(70, '2022-06-13 20:23:57', NULL, NULL, NULL, NULL, 'Jirka', 'Kneifl', 666666666, 'Jirka.kneifl@email.cz', 'Švermova 120/2', 41702, 'Dubí', '', 0, '2500.00');
 
 -- --------------------------------------------------------
 
@@ -191,7 +195,9 @@ INSERT INTO `objednavky_produkty` (`ID_produktu`, `nazevProduktu`, `ID_objednavk
 (2, 'Skateboard JART Renaissance III 8.25 ', 27, '1299.00', 1),
 (1, 'Longboard Deska LUCA Orion 2020 ', 28, '5490.00', 1),
 (3, 'Longboard kolečka CULT Emperor ', 29, '1690.00', 1),
-(1, 'Longboard Deska LUCA Orion 2020 ', 68, '5490.00', 5);
+(1, 'Longboard Deska LUCA Orion 2020 ', 68, '5490.00', 5),
+(2, 'Skateboard JART Renaissance III 8.25 ', 69, '1299.00', 3),
+(13, 'Trucky PARIS 149 mm street ', 70, '1250.00', 2);
 
 -- --------------------------------------------------------
 
@@ -236,10 +242,12 @@ CREATE TABLE `produkty` (
 --
 
 INSERT INTO `produkty` (`ID_produktu`, `nazev`, `cena`, `popis`, `vaha`, `sirka`, `delka`, `ID_kategorie`, `ID_vyrobce`, `cesta_obrazekProduktu`, `dodatecneInfoProduktu`) VALUES
-(1, 'Longboard Deska LUCA Orion 2020', '5490.00', 'Špičková deska, volba našich týmových jezdců.\r\n\r\nJestli ve Snowpanicu něčemu opravdu věříme, tak jsou to longboard desky od našeho polského kamaráda - LUCA Longboards.\r\n\r\nOrion je perfektní deska na downhill, freeride a slajdování. Velký rocker spolu s krásně tvarovanou konkávou a mírnými mikro-dropy udrží tvoje nohy na místě v jakékoliv situaci. LUCA Orion má navíc360° urethanové sidewally (urethanové nárazníky po celém obvodu desky) a nové jádro. Deska je proto lehká a navíc odolná proti praskání nebo štípání. \r\n\r\nVyrobeno v Polsku. S maximální péčí a láskou k longboardingu.', '2', '25', '86', 2, 1, 'static/images/ProductImages/Desky/LongboardDesky/Longboard Deska LUCA Orion 2020', 'lol neco '),
+(1, 'Longboard Deska LUCA Orion 2020', '5490.00', 'Špičková deska, volba našich týmových jezdců.\r\n\r\nJestli ve Snowpanicu něčemu opravdu věříme, tak jsou to longboard desky od našeho polského kamaráda - LUCA Longboards.\r\n\r\nOrion je perfektní deska na downhill, freeride a slajdování. Velký rocker spolu s krásně tvarovanou konkávou a mírnými mikro-dropy udrží tvoje nohy na místě v jakékoliv situaci. LUCA Orion má navíc360° urethanové sidewally (urethanové nárazníky po celém obvodu desky) a nové jádro. Deska je proto lehká a navíc odolná proti praskání nebo štípání. \r\n\r\nVyrobeno v Polsku. S maximální péčí a láskou k longboardingu.', '3', '25', NULL, 2, 1, 'static/images/ProductImages/Desky/LongboardDesky/Longboard Deska LUCA Orion 2020', 'lol neco '),
 (2, 'Skateboard JART Renaissance III 8.25', '1299.00', 'Jart Skateboards založili v roce 2001 bratři Igor, Iban a Ander Iraola. Značka ze Španělska se rychle stala dobře známou v Evropě a postupně i na globální scéně. Jako jedna z mála značek, Jart vyrábí své desky v Evropě. V továrně v Baskicku zvláštní pozorn', NULL, ' 8.25\"', ' 31.85\"', 3, 2, 'static/images/ProductImages/Desky/SkateboardDesky/Skateboard JART Renaissance III 8.25', 'safsgfsadgsd'),
 (3, 'Longboard kolečka CULT Emperor', '1690.00', 'Kolečka Cult Emperor jsou ideální volbou na rychlý freeride, nebo učení downhillu. Díky velkému jádru a urethanu Dopathane jsou kolečka rychlá, při gripování zatáček jim můžete důvěřovat a slajdují přesně tak, jak se nám to do rychlosti zdá ideální. Přecho', NULL, '53mm', NULL, 5, 3, 'static/images/ProductImages/Kolečka/LongboardKolečka/Longboard kolečka CULT Emperor', NULL),
-(4, 'Skateboard kolečka ORANGATANG Skiff', '1352.00', 'Orangatang SKIFF jsou malá kola s velkými ambicemi. Jsou vhodná na freestyle, street i hravý freeride.﻿ Růžové trvzené jádro má obrovský vliv na rychlost kol, čistotu slide a rovnoměrné opotřebení kola. Stone-ground kontaktní plocha zajišťuje předvídatelné', NULL, '25mm', NULL, 6, 4, 'static\\images\\ProductImages\\Kolečka\\SkateboardKolečka\\Skateboard kolečka ORANGATANG Skiff', NULL);
+(4, 'Skateboard kolečka ORANGATANG Skiff', '1352.00', 'Orangatang SKIFF jsou malá kola s velkými ambicemi. Jsou vhodná na freestyle, street i hravý freeride.﻿ Růžové trvzené jádro má obrovský vliv na rychlost kol, čistotu slide a rovnoměrné opotřebení kola. Stone-ground kontaktní plocha zajišťuje předvídatelné', NULL, '25mm', NULL, 6, 4, 'static\\images\\ProductImages\\Kolečka\\SkateboardKolečka\\Skateboard kolečka ORANGATANG Skiff', NULL),
+(13, 'Trucky PARIS 149 mm street', '1250.00', 'Paris Street 149mm ti umožní triky posunout do dalšího levelu. Jednoduše ogrinduj každý patník, koping, kachli či trubku, která se ti dostane do cesty! \r\n \r\nTrucky mají vyšší profil než standartní konvenční trucky, tzn. že už nebudeš potřebovat žádné podložky. Velká kola? Žádný problém! Díky tomu se skvěle hodí i na LDP desky, hybridní nebo cruiser desky. Od teď můžeš odjíždět triky s lepší manévrovatelností a lepší točivostí. Trucky Paris 149 street si budeš užívat od rána do večera.', '1', '149mm', NULL, 9, 2, 'static\\images\\ProductImages\\Trucky\\SkateboardTrucky\\Trucky PARIS 149 mm street', 'Dobré skate trucky.'),
+(15, 'Longboard trucky CALIBER III Raked 154mm 50° Black', '2250.00', 'Po 5 letech vývoje přichází na svět nové trucky od Caliber Truck Co. -> Caliber III vymazlenější než kdy dřív !!!\r\n \r\n\r\nUpraveny tak, aby uspokojily moderní jezdce s volitelným rakem, možností použití libovolné velikosti bushingů, zvýšenou pevností a zároveň přijatelnou cenou. Tým od Caliber Truck Co. vzal tyhle prototypy do pekla a zpět až z toho vzniknul tenhle masterpiece!\r\n\r\nTahle verze Raked Ti dodá lepší zatáčení a užší carve vhodný třeba pro freeride,freestyle, dancing a carving po městě. Otočením hangeru naopak (negative rake) docílíš větší stability, konzistetnějšího zatáčení, nižší výšky trucku a také ti negativní rake ulehčí vykopávání slidu. Ideální pro rychlý freeride nebo downhill.', '1', '1154mm', NULL, 8, 3, 'static\\images\\ProductImages\\Trucky\\LongboardTrucky\\Longboard trucky CALIBER III Raked 154mm 50° Black', 'Jsou to fakt super trucky.');
 
 -- --------------------------------------------------------
 
@@ -420,13 +428,13 @@ ALTER TABLE `zamestnanci`
 -- AUTO_INCREMENT pro tabulku `kategorie`
 --
 ALTER TABLE `kategorie`
-  MODIFY `ID_kategorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_kategorie` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pro tabulku `objednavky`
 --
 ALTER TABLE `objednavky`
-  MODIFY `cislo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
+  MODIFY `cislo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT pro tabulku `pozice`
@@ -438,7 +446,7 @@ ALTER TABLE `pozice`
 -- AUTO_INCREMENT pro tabulku `produkty`
 --
 ALTER TABLE `produkty`
-  MODIFY `ID_produktu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `ID_produktu` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT pro tabulku `vyrobci`
